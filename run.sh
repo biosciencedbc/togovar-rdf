@@ -3,8 +3,9 @@
 # RDF化対象のデータセット名 
 DATASET=$1
 
-# RDFファイルを出力するディレクトリのトップ
-OUTDIR=/mnt/share/togovar/load/virtuoso/
+# global.confを読み込む
+SCRIPT_DIR="$(cd $(dirname $0); pwd)"
+source "${SCRIPT_DIR}/global.conf"
 
 #
 #  処理対象となっているデータセット一覧
