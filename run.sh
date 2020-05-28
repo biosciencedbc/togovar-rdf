@@ -29,15 +29,16 @@ elif ! test "${TARGET_DATASETS[$DATASET]+isset}"; then
 fi  
 
 #  作業用ディレクトリ
-WORKDIR_ROOT="$(cd $(dirname $0); pwd)/work/"
+WORKDIR_ROOT="$(cd $(dirname $0); pwd)/work"
 WORKDIR="${WORKDIR_ROOT}/rdf-${DATASET}"
 WORKDIR_DOWNLOAD="${WORKDIR_ROOT}/rdf-${DATASET}_download"
 
 #
 #  dockerファイルをgithubからclone/pullする
 #
-rm -rf $WORKDIR
+mkdir -p $WORKDIR_ROOT
 cd $WORKDIR_ROOT
+rm -rf $WORKDIR
 git clone https://github.com/biosciencedbc/rdf-${DATASET}
 cd "$WORKDIR"   
 git submodule update --recursive --init
