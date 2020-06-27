@@ -12,5 +12,4 @@ rm -rf $OUTDIR
 mkdir -p $OUTDIR
 
 pushd $OUTDIR
-wget ftp://ftp.nlm.nih.gov/online/mesh/rdf/mesh.nt.gz 
-popd
+nohup wget -c -nd -N ftp://ftp.nlm.nih.gov/online/mesh/rdf/mesh.nt.gz 2> ${OUTDIR}/stdout.log &

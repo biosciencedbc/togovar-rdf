@@ -1,5 +1,18 @@
 #!/bin/bash
 
+#
+# -f オプションはダウンロードサイトに新ファイルがなくてもコンバートする
+#
+while getopts f OPT
+do
+  case $OPT in
+     f) OPTION="-f" ;;
+  esac
+done
+
+shift $(($OPTIND - 1))
+
+
 # RDF化対象のデータセット名 
 DATASET=$1
 
@@ -41,10 +54,16 @@ mkdir -p $WORKDIR_ROOT
 cd $WORKDIR_ROOT
 rm -rf $WORKDIR
 git clone https://github.com/biosciencedbc/rdf-${DATASET}
-cd "$WORKDIR"   
+cd "$WORKDIR"
+#
+# gitのサブモジュールを最新に更新する方法
+#
 git submodule update --recursive --init
+git submodule foreach git pull origin master
+
 
 # docker imageのビルド
+docker rmi rdf-${DATASET} 
 docker build --tag rdf-${DATASET} .
 
 # RDFファイルを出力する空ディレクトリを作成する
@@ -57,5 +76,5 @@ mkdir -p $OUTDIR
 # docker containerの実行
 #  　docker stop/killでサブプロセスも含めて綺麗に停止できそう。stopもSIGTERMでなくSIGKILLで止めているようなのでkillの方が速く止まる
 #
-nohup docker run --rm -v ${WORKDIR_DOWNLOAD}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} 1> ${OUTDIR}/stdout.log  2> ${OUTDIR}/stderr.log &
+nohup docker run --rm -v ${WORKDIR_DOWNLOAD}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} ${OPTION} 1> ${OUTDIR}/stdout.log  2> ${OUTDIR}/stderr.log &
 

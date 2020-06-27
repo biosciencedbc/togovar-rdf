@@ -12,6 +12,5 @@ rm -rf $OUTDIR
 mkdir -p $OUTDIR
 
 pushd $OUTDIR
-wget https://integbio.jp/rdf/download/pubcasefinder/2019-10-05/all/pubcasefinder.tar.gz 
-tar xvfz pubcasefinder.tar.gz
-popd
+wget -c -nd -N https://integbio.jp/rdf/download/pubcasefinder/2019-10-05/all/pubcasefinder.tar.gz 2> ${OUTDIR}/stdout.log 
+tar xvfz pubcasefinder.tar.gz 2> ${OUTDIR}/stderr.log

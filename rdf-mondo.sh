@@ -12,5 +12,4 @@ rm -rf $OUTDIR
 mkdir -p $OUTDIR
 
 pushd $OUTDIR
-wget http://purl.obolibrary.org/obo/mondo.owl
-popd
+nohup wget -c -nd -N http://purl.obolibrary.org/obo/mondo.owl 2> ${OUTDIR}/stdout.log &

@@ -14,7 +14,5 @@ rm -rf $OUTDIR
 mkdir -p $OUTDIR
 
 pushd $OUTDIR
-wget https://raw.githubusercontent.com/med2rdf/hgnc/master/hgnc_complete_set.ttl
+nohup wget -c -nd -N https://raw.githubusercontent.com/med2rdf/hgnc/master/hgnc_complete_set.ttl 2> ${OUTDIR}/stdout.log &
 gzip hgnc_complete_set.ttl
-rm -f hgnc_complete_set.ttl
-popd
