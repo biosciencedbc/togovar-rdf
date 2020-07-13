@@ -2,11 +2,13 @@
 
 #
 # -f オプションはダウンロードサイトに新ファイルがなくてもコンバートする
+# -P オプションは並列実行プロセス数
 #
-while getopts f OPT
+while getopts fP: OPT
 do
   case $OPT in
-     f) OPTION="-f" ;;
+     f) OPTION_f="-f" ;;
+     P) OPTION_P="-P$OPTARG" ;;
   esac
 done
 
@@ -76,5 +78,5 @@ mkdir -p $OUTDIR
 # docker containerの実行
 #  　docker stop/killでサブプロセスも含めて綺麗に停止できそう。stopもSIGTERMでなくSIGKILLで止めているようなのでkillの方が速く止まる
 #
-nohup docker run --rm -v ${WORKDIR_DOWNLOAD}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} ${OPTION} 1> ${OUTDIR}/stdout.log  2> ${OUTDIR}/stderr.log &
+nohup docker run --rm -v ${WORKDIR_DOWNLOAD}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} ${OPTION_f} ${OPTION_P} 1> ${OUTDIR}/stdout.log  2> ${OUTDIR}/stderr.log &
 
