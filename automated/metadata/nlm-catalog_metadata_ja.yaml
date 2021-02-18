@@ -1,0 +1,13 @@
+title: NLM Catalog
+website: https://www.ncbi.nlm.nih.gov/nlmcatalog/
+description: NLMカタログは、雑誌、書籍、視聴覚資料、コンピュータソフトウェア、電子資料などのNLM書誌データを提供しています。
+tags: [ Others, Journal article/Report/Bibliography  ]
+provider: National Center for Biotechnology Information
+creators:
+  - name: Med2RDF project
+    affiliation: http://med2rdf.org/
+version: release_20210212
+issued: 2021-02-12
+licenses:
+  - https://www.ncbi.nlm.nih.gov/home/about/policies/
+  - Source\: U.S. National Library of Medicine.

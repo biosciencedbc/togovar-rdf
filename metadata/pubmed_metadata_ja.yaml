@@ -1,0 +1,13 @@
+title: PubMed 
+website: https://pubmed.ncbi.nlm.nih.gov/
+description: PubMedは、MEDLINE、ライフサイエンスジャーナル、オンラインブックからの生物医学文献の3000万件以上の引用を収録しています。引用にはPubMed Centralや出版社のウェブサイトからのフルテキストへのリンクが含まれている場合があります。注：XMLファイル内のすべてのデータ項目がRDF形式に変換されているわけではありません。
+tags: [ Others, Journal article/Report/Bibliography, ]
+provider: National Institute of Technology and Evaluation
+creators:
+  - name: Med2RDF project
+    affiliation: http://med2rdf.org/
+    version: release_20210216
+issued: 2021-02-16
+licenses:
+  - https://www.nlm.nih.gov/databases/download.html
+  - Source\: U.S. National Library of Medicine.

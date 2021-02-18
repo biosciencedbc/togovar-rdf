@@ -1,0 +1,12 @@
+title: Ensembl for GRCh37
+website: https://grch37.ensembl.org/
+description: Ensembl プロジェクトで作成されたヒトゲノムデータセット（参照ゲノムのバージョンは GRCh37）です。
+tags: [ Gene, Genome, cDNA, Protein, Sequence, Ontology/ Terminology/Nomenclature ]
+provider: EMBL-EBI
+creators:
+  - name: Med2RDF project
+    affiliation: http://med2rdf.org/
+version: release_102
+issued: 2021-02-03
+licenses:
+  - http://grch37.ensembl.org/info/about/legal/disclaimer.html 

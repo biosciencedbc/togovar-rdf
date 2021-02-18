@@ -1,0 +1,12 @@
+title: Ensembl for GRCh37
+website: https://grch37.ensembl.org/
+description: Human genome datasets produced by the Ensembl project. The version of a reference genome is GRCh37
+tags: [ Gene, Genome, cDNA, Protein, Sequence, Ontology/ Terminology/Nomenclature ]
+provider: EMBL-EBI
+creators:
+  - name: Med2RDF project
+    affiliation: http://med2rdf.org/
+version: release_103
+issued: 2021-02-17
+licenses:
+  - http://grch37.ensembl.org/info/about/legal/disclaimer.html 

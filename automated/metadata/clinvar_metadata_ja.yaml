@@ -1,0 +1,13 @@
+title: Clinvar
+website: https://www.ncbi.nlm.nih.gov/clinvar/
+description: ヒトゲノムの多様性と関連する疾患についての情報を収集し、自由に利用できるアーカイブとして提供しているデータベースです
+tags: [ Polymorphism, Health/Disease, Sequence ]
+provider: National Center for Biotechnology Information
+creators:
+  - name: Med2RDF project
+    affiliation: http://med2rdf.org/
+version: release_20210212
+issued: 2021-02-12
+licenses:
+  - https://www.ncbi.nlm.nih.gov/clinvar/docs/maintenance_use/
+  - Source\: U.S. National Library of Medicine.
