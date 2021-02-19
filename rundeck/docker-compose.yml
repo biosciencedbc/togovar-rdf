@@ -1,0 +1,47 @@
+version: '3.5'
+
+services:
+  rundeck:
+    # image: rundeck/rundeck:SNAPSHOT
+    hostname: rundeck
+    links:
+      - mysql
+    env_file: .env
+    build:
+      context: .
+    environment:
+      RUNDECK_DATABASE_DRIVER: com.mysql.jdbc.Driver
+      RUNDECK_DATABASE_USERNAME: rundeck
+      RUNDECK_DATABASE_PASSWORD: rundeck
+      RUNDECK_DATABASE_URL: jdbc:mysql://mysql/rundeck?autoReconnect=true&useSSL=false
+      RUNDECK_GRAILS_URL: $GRAILS_URL
+      RUNDECK_MAIL_SMTP_HOST: $SMTP_HOST
+      RUNDECK_MAIL_SMTP_PORT: $SMTP_PORT
+      RUNDECK_MAIL_FROM: $MAIL_FROM
+
+    volumes:
+      - ${RUNDECK_LICENSE_FILE:-/dev/null}:/home/rundeck/etc/rundeckpro-license.key
+      - ./server/config/realm.properties:/home/rundeck/server/config/realm.properties:ro
+      - ./projects/:/home/rundeck/projects/
+      - ./scripts:/home/rundeck/scripts/
+      - ./var/logs:/home/rundeck/var/logs/rundeck/
+      - /home/togovar/togovar/togovar-dev/togovar-rdf:/home/rundeck/togovar-rdf/
+      - /mnt/share/togovar/load/virtuoso:/home/rundeck/togovar-rdf/virtuoso/
+        #      - /root/dev/rundeck/.ssh:/home/rundeck/.ssh/
+      - /etc/hosts:/etc/hosts
+      - /var/rundeck:/var/rundeck_home
+      - /var/run/docker.sock:/var/run/docker.sock
+
+    ports:
+      - 
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+    volumes:
+      - dbdata:/var/lib/mysql
+volumes:
+  dbdata:
