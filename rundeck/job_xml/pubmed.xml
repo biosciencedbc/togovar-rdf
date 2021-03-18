@@ -1,0 +1,42 @@
+<joblist>
+  <job>
+    <defaultTab>nodes</defaultTab>
+    <description></description>
+    <executionEnabled>true</executionEnabled>
+    <id>9117de11-824d-4269-b7c5-57a499b14de9</id>
+    <loglevel>INFO</loglevel>
+    <name>pubmed</name>
+    <nodeFilterEditable>false</nodeFilterEditable>
+    <notification>
+      <onfailure>
+        <email attachLog='true' attachLogInline='true' recipients='hitachi-se@biosciencedbc.jp' />
+      </onfailure>
+      <onstart>
+        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
+      </onstart>
+      <onsuccess>
+        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
+      </onsuccess>
+    </notification>
+    <notifyAvgDurationThreshold />
+    <plugins />
+    <schedule>
+      <month month='*' />
+      <time hour='19' minute='00' seconds='0' />
+      <weekday day='FRI,MON,THU,TUE,WED' />
+      <year year='*' />
+    </schedule>
+    <scheduleEnabled>true</scheduleEnabled>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <description>run pubmed converter</description>
+        <exec>sudo -u togovar -p rundeck ./togovar-rdf/automated/job1_step1.sh -P50 pubmed </exec>
+      </command>
+      <command>
+        <exec>sudo -u togovar -p rundeck ./togovar-rdf/automated/job1_step2.sh pubmed</exec>
+      </command>
+    </sequence>
+    <timeZone>Japan</timeZone>
+    <uuid>9117de11-824d-4269-b7c5-57a499b14de9</uuid>
+  </job>
+</joblist>

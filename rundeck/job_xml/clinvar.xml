@@ -1,0 +1,42 @@
+<joblist>
+  <job>
+    <defaultTab>nodes</defaultTab>
+    <description></description>
+    <executionEnabled>true</executionEnabled>
+    <id>b8598424-8f2e-4664-b571-8e6a125feea9</id>
+    <loglevel>INFO</loglevel>
+    <name>clinvar</name>
+    <nodeFilterEditable>false</nodeFilterEditable>
+    <notification>
+      <onfailure>
+        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
+      </onfailure>
+      <onstart>
+        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
+      </onstart>
+      <onsuccess>
+        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
+      </onsuccess>
+    </notification>
+    <notifyAvgDurationThreshold />
+    <plugins />
+    <schedule>
+      <month month='*' />
+      <time hour='19' minute='00' seconds='0' />
+      <weekday day='FRI,MON,THU,TUE,WED' />
+      <year year='*' />
+    </schedule>
+    <scheduleEnabled>true</scheduleEnabled>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <description>run clinvar converter</description>
+        <exec>sudo -u togovar -p rundeck ./togovar-rdf/automated/job1_step1.sh -P10 clinvar</exec>
+      </command>
+      <command>
+        <exec>sudo -u togovar -p rundeck ./togovar-rdf/automated/job1_step2.sh clinvar</exec>
+      </command>
+    </sequence>
+    <timeZone>Japan</timeZone>
+    <uuid>b8598424-8f2e-4664-b571-8e6a125feea9</uuid>
+  </job>
+</joblist>
