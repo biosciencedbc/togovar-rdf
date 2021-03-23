@@ -3,22 +3,10 @@
     <defaultTab>nodes</defaultTab>
     <description></description>
     <executionEnabled>true</executionEnabled>
-    <id>6b037f54-71f9-49c4-9630-fdd0da281d27</id>
+    <id>e6422dcf-da1a-46c7-bab9-9d096c3ba1a2</id>
     <loglevel>INFO</loglevel>
     <name>hgnc</name>
     <nodeFilterEditable>false</nodeFilterEditable>
-    <notification>
-      <onfailure>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onfailure>
-      <onstart>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onstart>
-      <onsuccess>
-        <email attachLog='true' attachLogInline='true' recipients='hitachi-se@biosciencedbc.jp' />
-      </onsuccess>
-    </notification>
-    <notifyAvgDurationThreshold />
     <plugins />
     <schedule>
       <month month='*' />
@@ -37,6 +25,6 @@
       </command>
     </sequence>
     <timeZone>Japan</timeZone>
-    <uuid>6b037f54-71f9-49c4-9630-fdd0da281d27</uuid>
+    <uuid>e6422dcf-da1a-46c7-bab9-9d096c3ba1a2</uuid>
   </job>
 </joblist>
