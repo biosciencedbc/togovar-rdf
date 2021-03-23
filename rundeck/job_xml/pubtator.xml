@@ -3,22 +3,10 @@
     <defaultTab>nodes</defaultTab>
     <description></description>
     <executionEnabled>true</executionEnabled>
-    <id>75316d4a-f581-4e6b-8c3e-724f24365c3c</id>
+    <id>605b0b4c-b34a-4ea7-885a-c5aef6d6e83d</id>
     <loglevel>INFO</loglevel>
     <name>pubtator</name>
     <nodeFilterEditable>false</nodeFilterEditable>
-    <notification>
-      <onfailure>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onfailure>
-      <onstart>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onstart>
-      <onsuccess>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onsuccess>
-    </notification>
-    <notifyAvgDurationThreshold />
     <plugins />
     <schedule>
       <month month='*' />
@@ -37,6 +25,6 @@
       </command>
     </sequence>
     <timeZone>Japan</timeZone>
-    <uuid>75316d4a-f581-4e6b-8c3e-724f24365c3c</uuid>
+    <uuid>605b0b4c-b34a-4ea7-885a-c5aef6d6e83d</uuid>
   </job>
 </joblist>
