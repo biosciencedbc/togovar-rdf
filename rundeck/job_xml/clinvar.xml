@@ -3,22 +3,10 @@
     <defaultTab>nodes</defaultTab>
     <description></description>
     <executionEnabled>true</executionEnabled>
-    <id>b8598424-8f2e-4664-b571-8e6a125feea9</id>
+    <id>0b3bec91-d8b9-4d2a-bbb7-fcd0e5b7809d</id>
     <loglevel>INFO</loglevel>
     <name>clinvar</name>
     <nodeFilterEditable>false</nodeFilterEditable>
-    <notification>
-      <onfailure>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onfailure>
-      <onstart>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onstart>
-      <onsuccess>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onsuccess>
-    </notification>
-    <notifyAvgDurationThreshold />
     <plugins />
     <schedule>
       <month month='*' />
@@ -37,6 +25,6 @@
       </command>
     </sequence>
     <timeZone>Japan</timeZone>
-    <uuid>b8598424-8f2e-4664-b571-8e6a125feea9</uuid>
+    <uuid>0b3bec91-d8b9-4d2a-bbb7-fcd0e5b7809d</uuid>
   </job>
 </joblist>
