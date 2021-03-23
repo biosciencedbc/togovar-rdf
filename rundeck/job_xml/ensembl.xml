@@ -3,22 +3,10 @@
     <defaultTab>nodes</defaultTab>
     <description></description>
     <executionEnabled>true</executionEnabled>
-    <id>f6ccfc8a-7de8-4367-b697-31ea61061679</id>
+    <id>d62406e5-426c-4794-a58d-d2cb28f9335c</id>
     <loglevel>INFO</loglevel>
     <name>ensembl</name>
     <nodeFilterEditable>false</nodeFilterEditable>
-    <notification>
-      <onfailure>
-        <email attachLog='true' attachLogInline='true' recipients='hitachi-se@biosciencedbc.jp' />
-      </onfailure>
-      <onstart>
-        <email attachLog='true' attachLogInline='true' recipients='ttakahashi@biosciencedbc.jp' />
-      </onstart>
-      <onsuccess>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onsuccess>
-    </notification>
-    <notifyAvgDurationThreshold />
     <plugins />
     <schedule>
       <month month='*' />
@@ -36,6 +24,6 @@
       </command>
     </sequence>
     <timeZone>Japan</timeZone>
-    <uuid>f6ccfc8a-7de8-4367-b697-31ea61061679</uuid>
+    <uuid>d62406e5-426c-4794-a58d-d2cb28f9335c</uuid>
   </job>
 </joblist>
