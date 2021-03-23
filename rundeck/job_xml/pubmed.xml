@@ -3,22 +3,10 @@
     <defaultTab>nodes</defaultTab>
     <description></description>
     <executionEnabled>true</executionEnabled>
-    <id>9117de11-824d-4269-b7c5-57a499b14de9</id>
+    <id>ce29e5a6-bcb0-4a79-a2e7-511075811a61</id>
     <loglevel>INFO</loglevel>
     <name>pubmed</name>
     <nodeFilterEditable>false</nodeFilterEditable>
-    <notification>
-      <onfailure>
-        <email attachLog='true' attachLogInline='true' recipients='hitachi-se@biosciencedbc.jp' />
-      </onfailure>
-      <onstart>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onstart>
-      <onsuccess>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onsuccess>
-    </notification>
-    <notifyAvgDurationThreshold />
     <plugins />
     <schedule>
       <month month='*' />
@@ -37,6 +25,6 @@
       </command>
     </sequence>
     <timeZone>Japan</timeZone>
-    <uuid>9117de11-824d-4269-b7c5-57a499b14de9</uuid>
+    <uuid>ce29e5a6-bcb0-4a79-a2e7-511075811a61</uuid>
   </job>
 </joblist>
