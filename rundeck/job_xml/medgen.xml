@@ -3,22 +3,10 @@
     <defaultTab>nodes</defaultTab>
     <description></description>
     <executionEnabled>true</executionEnabled>
-    <id>5cb90621-b60b-45ef-aa1e-e725e84d8621</id>
+    <id>1415ed17-1ca7-482b-974b-adcdf9125afe</id>
     <loglevel>INFO</loglevel>
     <name>medgen</name>
     <nodeFilterEditable>false</nodeFilterEditable>
-    <notification>
-      <onfailure>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onfailure>
-      <onstart>
-        <email attachLog='true' attachLogInline='true' recipients='ttakahashi@biosciencedbc.jp' />
-      </onstart>
-      <onsuccess>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onsuccess>
-    </notification>
-    <notifyAvgDurationThreshold />
     <plugins />
     <schedule>
       <month month='*' />
@@ -37,6 +25,6 @@
       </command>
     </sequence>
     <timeZone>Japan</timeZone>
-    <uuid>5cb90621-b60b-45ef-aa1e-e725e84d8621</uuid>
+    <uuid>1415ed17-1ca7-482b-974b-adcdf9125afe</uuid>
   </job>
 </joblist>
