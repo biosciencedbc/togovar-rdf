@@ -3,22 +3,10 @@
     <defaultTab>nodes</defaultTab>
     <description></description>
     <executionEnabled>true</executionEnabled>
-    <id>45bf5203-def7-4ba9-8009-07a9d538d558</id>
+    <id>f76f95a7-68d4-46a0-bcc1-dd7c74a1bc28</id>
     <loglevel>INFO</loglevel>
     <name>nlm-catalog</name>
     <nodeFilterEditable>false</nodeFilterEditable>
-    <notification>
-      <onfailure>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onfailure>
-      <onstart>
-        <email attachLog='true' attachLogInline='true' recipients='tokunaga@biosciencedbc.jp' />
-      </onstart>
-      <onsuccess>
-        <email attachLog='true' attachLogInline='true' recipients='hitachi-se@biosciencedbc.jp' />
-      </onsuccess>
-    </notification>
-    <notifyAvgDurationThreshold />
     <plugins />
     <schedule>
       <month month='*' />
@@ -36,6 +24,6 @@
       </command>
     </sequence>
     <timeZone>Japan</timeZone>
-    <uuid>45bf5203-def7-4ba9-8009-07a9d538d558</uuid>
+    <uuid>f76f95a7-68d4-46a0-bcc1-dd7c74a1bc28</uuid>
   </job>
 </joblist>
