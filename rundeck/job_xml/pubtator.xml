@@ -1,0 +1,30 @@
+<joblist>
+  <job>
+    <defaultTab>nodes</defaultTab>
+    <description></description>
+    <executionEnabled>true</executionEnabled>
+    <id>605b0b4c-b34a-4ea7-885a-c5aef6d6e83d</id>
+    <loglevel>INFO</loglevel>
+    <name>pubtator</name>
+    <nodeFilterEditable>false</nodeFilterEditable>
+    <plugins />
+    <schedule>
+      <month month='*' />
+      <time hour='19' minute='00' seconds='0' />
+      <weekday day='FRI,MON,THU,TUE,WED' />
+      <year year='*' />
+    </schedule>
+    <scheduleEnabled>true</scheduleEnabled>
+    <sequence keepgoing='false' strategy='node-first'>
+      <command>
+        <description>run pubtator converter</description>
+        <exec>sudo -u togovar -p rundeck ./togovar-rdf/automated/job1_step1.sh -P3 pubtator</exec>
+      </command>
+      <command>
+        <exec>sudo -u togovar -p rundeck ./togovar-rdf/automated/job1_step2.sh pubtator</exec>
+      </command>
+    </sequence>
+    <timeZone>Japan</timeZone>
+    <uuid>605b0b4c-b34a-4ea7-885a-c5aef6d6e83d</uuid>
+  </job>
+</joblist>
