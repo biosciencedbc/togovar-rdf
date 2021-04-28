@@ -54,22 +54,53 @@ WORKDIR_DOWNLOAD="${WORKDIR_HOST}/rdf-${DATASET}_download"
 WORKDIR_LOG="${WORKDIR_ROOT}/rdf-${DATASET}_logs"
 YYYYMMDD=`LANG=C; date +%Y%m%d`
 #
-#  dockerファイルをgithubからclone/pullする
+#  dockerファイルをgithubからpullする
+#  ディレクトリがない場合はclone あればpull 
+#  clone は　サブモジュールのアップデートも行
+#  pull は　ログから更新あるか確認　あればフラグを立てる
 #
 if [ "${OPTION_g}" = "-g" ] &&  [ -d "${WORKDIR}" ]; then
   echo "Skip git clone https://github.com/biosciencedbc/rdf-${DATASET}"
+
+elif [ -d "${WORKDIR}" ]; then
+  cd $WORKDIR
+  git pull > ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
+  
+  # サブモジュールの有無を確認
+  sub_exist=`git submodule status | wc -l` 
+  if [ $sub_exist -eq 0 ]; then
+    git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
+    # git pullのログが1行ない場合（更新がある場合）
+    # オプションfを指定してアーカイブファイルに更新がなくとも更新するようにする
+    if [ ${git_log} -lt 1 ]; then
+      OPTION_f="-f"
+      echo "コンバータに更新がありました"
+    fi
+  else
+    #git submodule update --recursive --init >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
+    git submodule foreach git pull origin master >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
+  
+    git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l` 
+    # git pullのログが2行ない場合（更新がある場合）
+    # オプションfを指定してアーカイブファイルに更新がなくとも更新するようにする
+    if [ ${git_log} -lt 2 ]; then
+      OPTION_f="-f"
+      echo "コンバータに更新がありました"
+    fi
+  fi
 else
   mkdir -p $WORKDIR_ROOT
   cd $WORKDIR_ROOT
-  rm -rf $WORKDIR
   git clone https://github.com/biosciencedbc/rdf-${DATASET} > ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
   
-  cd "$WORKDIR"
+  cd $WORKDIR  
   #
   # gitのサブモジュールを最新に更新する
   #
   git submodule update --recursive --init >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
   git submodule foreach git pull origin master >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
+  OPTION_f="-f"
+  echo "コンバータに更新がありました"
 fi
 
 # docker imageのビルド
@@ -83,12 +114,23 @@ fi
 
 # RDFファイルを出力する空ディレクトリを作成する
 OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
-rm -rf $OUTDIR
-mkdir -p $OUTDIR
+
+# 出力ディレクトリがすでにある場合
+if [ -e ${OUTDIR} ]; then
+  # 出力ディレクトリにファイルがある場合、コンバート済みとして正常終了
+  if [ -n "#(ls ${OUTDIR})"]; then
+    echo "すでにコンバートされています"
+    exit 0
+  fi
+# 出力ディレクトリがない場合、出力先ディレクトリを作成する
+else 
+  mkdir -p $OUTDIR
+fi
 
 #
 # docker containerの実行
-#  　docker stop/killでサブプロセスも含めて綺麗に停止できそう。stopもSIGTERMでなくSIGKILLで止めているようなのでkillの方が速く止まる
+# pull でコンバータに更新がある場合は -f つけて実行
+# docker stop/killでサブプロセスも含めて綺麗に停止できそう。stopもSIGTERMでなくSIGKILLで止めているようなのでkillの方が速く止まる
 #
 docker run --rm -v ${WORKDIR_DOWNLOAD}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} ${OPTION_f} ${OPTION_P} 1> ${WORKDIR_LOG}/${YYYYMMDD}_stdout.log  2> ${WORKDIR_LOG}/${YYYYMMDD}_stderr.log
 
