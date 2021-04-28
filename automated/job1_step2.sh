@@ -50,7 +50,7 @@ OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
 FILECOUNT=`find ${OUTDIR} -type f | wc -l`
 
 if [ ${FILECOUNT} -eq 0 ]; then
-  # rm -rf ${OUTDIR}
+  rm -rf ${OUTDIR}
   echo "${DATASET} の更新はありません"
   #echo "RDF files were generated because no new files were found at the download site."
   exit 0
@@ -102,24 +102,24 @@ cd - > /dev/null
 METADATA_DIR="${SCRIPT_DIR}/../metadata"
 YYYY_MM_DD=`echo ${YYYYMMDD:0:4}-${YYYYMMDD:4:2}-${YYYYMMDD:6:2}`
 
+# metadataをRDFファイル出力ディレクトリにコピーする
+cp ${METADATA_DIR}/${DATASET}_metadata.yaml ${OUTDIR}/metadata.yaml
+cp ${METADATA_DIR}/${DATASET}_metadata_ja.yaml ${OUTDIR}/metadata_ja.yaml
+
+
 # 更新日(issued)を実行日に更新する
-sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${METADATA_DIR}/${DATASET}_metadata.yaml
-sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${METADATA_DIR}/${DATASET}_metadata_ja.yaml
+sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${OUTDIR}/metadata.yaml
+sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${OUTDIR}/metadata_ja.yaml
 
 # バージョン(version)を更新する、Ensemblの場合はアーカイブファイルと同じ場所に保存されているversionを記載したファイルを参照する
 if [ ${DATASET} = "ensembl" ]; then
   ENSEMBL_VERSION=`cat ${WORKDIR_ROOT}/rdf-ensembl_download/version.json | jq '.releases[0]'`
-  sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${METADATA_DIR}/${DATASET}_metadata.yaml 
-  sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${METADATA_DIR}/${DATASET}_metadata_ja.yaml
+  sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata.yaml 
+  sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata_ja.yaml
 else
-  sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${METADATA_DIR}/${DATASET}_metadata.yaml
-  sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${METADATA_DIR}/${DATASET}_metadata_ja.yaml
+  sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata.yaml
+  sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata_ja.yaml
 fi
-
-# 更新したmetadataをRDFファイル出力ディレクトリにコピーする
-cp ${METADATA_DIR}/${DATASET}_metadata.yaml ${OUTDIR}/metadata.yaml
-cp ${METADATA_DIR}/${DATASET}_metadata_ja.yaml ${OUTDIR}/metadata_ja.yaml 
-
 
 echo "${DATASET} の最新ファイルは ${OUTDIR} に出力されました"
 #
