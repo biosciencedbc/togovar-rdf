@@ -1,6 +1,6 @@
 * RDFデータ作成運用報告 
   * RDF作成対象7データセット
-    | データセット名     | コンバートしたttlファイルの最新version | 
+    | データセット名     | コンバートしたファイルの最新versionへのリンク | 
     |-------------|--------------------------| 
     | [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/)| [2021-04-26](https://togovar-stg.biosciencedbc.jp/public/virtuoso/clinvar/latest/)                | 
     | [MedGen](https://www.ncbi.nlm.nih.gov/medgen/)  | [2021-04-26](https://togovar-stg.biosciencedbc.jp/public/virtuoso/medgen/latest/)                | 
