@@ -1,6 +1,10 @@
 # togovar-rdf
 RDF converter launchers for TogoVar.
 
+## Datasets to convert
+
+See [DATASETLIST.md](DATASETLIST.md)
+
 ## Run
 
 Run rdf-${dataset_name}.sh to obtain RDF files of a dataset.
