@@ -79,8 +79,8 @@ fi
 # ロード結果のエラー数が0でない場合、エラー内容を出力して異常終了
 if [ ! ${ERRORCOUNT} -eq 0 ]; then
   echo "ロード結果にエラーがあります"
-  ERRORLOG=`echo ${RESULT} | sed -n '2,$p'`
-  echo "${ERRORLOG}"
+  #ERRORLOG=`echo ${RESULT} | sed -n '2,$p'`
+  echo "${RESULT}"
   exit 1
 fi
 

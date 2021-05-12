@@ -117,10 +117,10 @@ OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
 
 # 出力ディレクトリがすでにある場合
 if [ -e ${OUTDIR} ]; then
-  # 出力ディレクトリにファイルがある場合、コンバート済みとして正常終了
-  if [ -n "#(ls ${OUTDIR})"]; then
-    echo "すでにコンバートされています"
-    exit 0
+  # 出力ディレクトリにファイルがある場合、コンバート済みとして異常終了
+  if [ -n "$(ls $OUTDIR)" ]; then
+    echo "本日分(${YYYYMMDD})はすでにコンバートされています"
+    exit 1
   fi
 # 出力ディレクトリがない場合、出力先ディレクトリを作成する
 else 
@@ -134,7 +134,7 @@ fi
 #
 docker run --rm -v ${WORKDIR_DOWNLOAD}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} ${OPTION_f} ${OPTION_P} 1> ${WORKDIR_LOG}/${YYYYMMDD}_stdout.log  2> ${WORKDIR_LOG}/${YYYYMMDD}_stderr.log
 
-#
+#convert_rdf_make.sh
 # 出力されたログファイルからエラーの有無を確認
 # エラーがあれば異常終了
 #
