@@ -13,8 +13,13 @@ source "${SCRIPT_DIR}/global.conf"
 
 VIRTUOSO_SWITCH_DIR=${DOCKER_ROOT_DIR}/data
 TOGOVAR_DEV_DIR=/home/rundeck/togovar-data/virtuoso
+TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-develop-docker
 #TOGOVAR_VIRTUOSO_LOADER_DIR=/home/togovar/togovar/togovar-dev/togovar-virtuoso-loader/togovar-data/data/virtuoso
 #STORE_BK_DIR=/mnt/share/togovar/store.bk/dgx1/data/virtuoso
+
+# togovar-devの停止
+cd ${TOGOVAR_DEV_DOCKER_DIR}
+docker-compose stop
 
 echo "make backup"
 
@@ -31,11 +36,7 @@ cp ${VIRTUOSO_SWITCH_DIR}/virtuoso.db ${TOGOVAR_DEV_DIR}/virtuoso.db
 
 
 # togovar-devの再起動
-
-TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-develop-docker
-
-cd ${TOGOVAR_DEV_DOCKER_DIR}
-docker-compose restart
+docker-compose start
 
 
 echo "finish"
