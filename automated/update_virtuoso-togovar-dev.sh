@@ -19,7 +19,8 @@ TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-develop-docker
 
 # togovar-devの停止
 cd ${TOGOVAR_DEV_DOCKER_DIR}
-docker-compose stop
+docker-compose exec virtuoso isql-v 1111 dba dba exec="checkpoint"
+docker-compose exec virtuoso isql-v 1111 dba dba -K
 
 echo "make backup"
 
@@ -36,7 +37,7 @@ cp ${VIRTUOSO_SWITCH_DIR}/virtuoso.db ${TOGOVAR_DEV_DIR}/virtuoso.db
 
 
 # togovar-devの再起動
-docker-compose start
+docker-compose start virtuoso
 
 
 echo "finish"

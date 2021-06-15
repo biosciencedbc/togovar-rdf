@@ -36,6 +36,7 @@ TARGET_DATASETS['medgen']=true
 TARGET_DATASETS['pubmed']=true
 TARGET_DATASETS['pubtator']=true
 TARGET_DATASETS['hgnc']=true
+TARGET_DATASETS['efo']=true
 #
 #  データセット一覧に含まれているかチェック
 #
@@ -89,11 +90,11 @@ elif [ -d "${WORKDIR}" ]; then
     fi
   fi
 else
-  mkdir -p $WORKDIR_ROOT
-  cd $WORKDIR_ROOT
+  mkdir -p $WORKDIR_ROOT && mkdir -p ${WORKDIR_LOG}
+  cd ${WORKDIR_ROOT}
   git clone https://github.com/biosciencedbc/rdf-${DATASET} > ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
-  
-  cd $WORKDIR  
+    
+  cd ${WORKDIR}
   #
   # gitのサブモジュールを最新に更新する
   #
@@ -108,7 +109,7 @@ docker rmi rdf-${DATASET} >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log
 docker build --tag rdf-${DATASET} . >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log
 if [ $? -ne 0 ]; then
   echo "イメージのビルドに失敗しました"
-  echo ${WORKDIR_LOG}/${YYYYMMDD}_build.log
+  cat ${WORKDIR_LOG}/${YYYYMMDD}_build.log
   exit 1
 fi
 

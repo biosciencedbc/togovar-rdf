@@ -24,7 +24,7 @@ TARGET_DATASETS['medgen']=true
 TARGET_DATASETS['pubmed']=true
 TARGET_DATASETS['pubtator']=true
 TARGET_DATASETS['hgnc']=true
-
+TARGET_DATASETS['efo']=true
 #
 #  データセット一覧に含まれているかチェック
 #
@@ -102,6 +102,7 @@ cd - > /dev/null
 METADATA_DIR="${SCRIPT_DIR}/../metadata"
 YYYY_MM_DD=`echo ${YYYYMMDD:0:4}-${YYYYMMDD:4:2}-${YYYYMMDD:6:2}`
 
+if [ ${DATASET} != "efo" ]; then
 # metadataをRDFファイル出力ディレクトリにコピーする
 cp ${METADATA_DIR}/${DATASET}_metadata.yaml ${OUTDIR}/metadata.yaml
 cp ${METADATA_DIR}/${DATASET}_metadata_ja.yaml ${OUTDIR}/metadata_ja.yaml
@@ -120,7 +121,7 @@ else
   sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata.yaml
   sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata_ja.yaml
 fi
-
+fi
 echo "${DATASET} の最新ファイルは ${OUTDIR} に出力されました"
 #
 # 完了
