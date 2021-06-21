@@ -19,8 +19,16 @@ TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-develop-docker
 
 # togovar-devの停止
 cd ${TOGOVAR_DEV_DOCKER_DIR}
-docker-compose exec virtuoso isql-v 1111 dba dba exec="checkpoint"
-docker-compose exec virtuoso isql-v 1111 dba dba -K
+docker-compose exec -T virtuoso isql-v 1111 dba dba exec="checkpoint"
+exec_1=`echo $?`
+docker-compose exec -T virtuoso isql-v 1111 dba dba -K
+exec_2=`echo $?`
+
+# togovar-devの停止に失敗した場合異常終了する
+if [ ${exec_1} -ne 0 ] || [ ${exec_2} -ne 0 ]; then
+  echo "togovar-devの停止に失敗しました"
+  exit 1
+fi
 
 echo "make backup"
 
