@@ -37,14 +37,7 @@ now=`date "+%Y%m%d-%H%M%S"`
 echo "Started load.sh at $now"
 
 # latestの参照先のディレクトリを取得
-CLINVAR_DATE=`readlink ${LOAD_DATA_BASE}/virtuoso/clinvar/latest`
-ENSEMBL_DATE=`readlink ${LOAD_DATA_BASE}/virtuoso/ensembl/latest`
-HGNC_DATE=`readlink ${LOAD_DATA_BASE}/virtuoso/hgnc/latest`
-MEDGEN_DATE=`readlink ${LOAD_DATA_BASE}/virtuoso/medgen/latest`
-NLM_CATALOG_DATE=`readlink ${LOAD_DATA_BASE}/virtuoso/nlm-catalog/latest`
-PUBMED_DATE=`readlink ${LOAD_DATA_BASE}/virtuoso/pubmed/latest`
-PUBTATOR_DATE=`readlink ${LOAD_DATA_BASE}/virtuoso/pubtator/latest`
-DATASETS=("clinvar" "ensembl" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog")
+DATASETS=("clinvar" "ensembl" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo")
 WORK_DIR="${DOCKER_ROOT_DIR}/work"
 declare -A DATASETS_DATE
 
@@ -68,8 +61,8 @@ add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3 'ExAC.*.ttl.gz' 'h
 
 add_load_list ${LOAD_DATA_BASE}/virtuoso/clinvar/${DATASETS_DATE["clinvar"]} '*.ttl.gz' 'http://togovar.biosciencedbc.jp/clinvar'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl/${DATASETS_DATE["ensembl"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl37'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/gwas-catalog/ '*' 'http://togovar.biosciencedbc.jp/gwas-catalog'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/efo/20201110/ 'efo.owl' 'http://togovar.biosciencedbc.jp/efo'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/gwas-catalog/20210614 '*' 'http://togovar.biosciencedbc.jp/gwas-catalog'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/efo/${DATASETS_DATE["efo"]} '*.owl' 'http://togovar.biosciencedbc.jp/efo'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hco/20180409 '*.ttl' 'http://togovar.biosciencedbc.jp/hco'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hgnc/${DATASETS_DATE["hgnc"]} '*.ttl' 'http://togovar.biosciencedbc.jp/hgnc'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/medgen/${DATASETS_DATE["medgen"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/medgen'
