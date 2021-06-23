@@ -37,6 +37,7 @@ TARGET_DATASETS['pubmed']=true
 TARGET_DATASETS['pubtator']=true
 TARGET_DATASETS['hgnc']=true
 TARGET_DATASETS['efo']=true
+TARGET_DATASETS['mondo']=true
 #
 #  データセット一覧に含まれているかチェック
 #

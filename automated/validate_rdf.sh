@@ -1,9 +1,21 @@
 #!/bin/bash
 
 #
-# ジョブ2 ステップ2
+# ジョブ1 ステップ2
 # テスト用のvirtuosoにロードしてRDFのバリデートを行う
 #
+
+# メタデータシート作成フラグ
+MAKE_MATADATA=1
+
+while getopts n OPT
+do
+  case $OPT in
+    n) MAKE_MATADATA=0 ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
 
 # RDF化対象のデータセット名
 DATASET=$1
@@ -25,6 +37,7 @@ TARGET_DATASETS['pubmed']=true
 TARGET_DATASETS['pubtator']=true
 TARGET_DATASETS['hgnc']=true
 TARGET_DATASETS['efo']=true
+TARGET_DATASETS['mondo']=true
 #
 #  データセット一覧に含まれているかチェック
 #
@@ -102,26 +115,28 @@ cd - > /dev/null
 METADATA_DIR="${SCRIPT_DIR}/../metadata"
 YYYY_MM_DD=`echo ${YYYYMMDD:0:4}-${YYYYMMDD:4:2}-${YYYYMMDD:6:2}`
 
-if [ ${DATASET} != "efo" ]; then
-# metadataをRDFファイル出力ディレクトリにコピーする
-cp ${METADATA_DIR}/${DATASET}_metadata.yaml ${OUTDIR}/metadata.yaml
-cp ${METADATA_DIR}/${DATASET}_metadata_ja.yaml ${OUTDIR}/metadata_ja.yaml
+# nオプションが指定されていなければメタデータを作成する
+if [ ${MAKE_MATADATA} -eq 1 ]; then
+  # metadataをRDFファイル出力ディレクトリにコピーする
+  cp ${METADATA_DIR}/${DATASET}_metadata.yaml ${OUTDIR}/metadata.yaml
+  cp ${METADATA_DIR}/${DATASET}_metadata_ja.yaml ${OUTDIR}/metadata_ja.yaml
 
 
-# 更新日(issued)を実行日に更新する
-sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${OUTDIR}/metadata.yaml
-sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${OUTDIR}/metadata_ja.yaml
+  # 更新日(issued)を実行日に更新する
+  sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${OUTDIR}/metadata.yaml
+  sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${OUTDIR}/metadata_ja.yaml
 
-# バージョン(version)を更新する、Ensemblの場合はアーカイブファイルと同じ場所に保存されているversionを記載したファイルを参照する
-if [ ${DATASET} = "ensembl" ]; then
-  ENSEMBL_VERSION=`cat ${WORKDIR_ROOT}/rdf-ensembl_download/version.json | jq '.releases[0]'`
-  sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata.yaml 
-  sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata_ja.yaml
-else
-  sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata.yaml
-  sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata_ja.yaml
+  # バージョン(version)を更新する、Ensemblの場合はアーカイブファイルと同じ場所に保存されているversionを記載したファイルを参照する
+  if [ ${DATASET} = "ensembl" ]; then
+    ENSEMBL_VERSION=`cat ${WORKDIR_ROOT}/rdf-ensembl_download/version.json | jq '.releases[0]'`
+    sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata.yaml 
+    sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata_ja.yaml
+  else
+    sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata.yaml
+    sed -i -e "s/version: .*$/version: release_${YYYYMMDD}/" ${OUTDIR}/metadata_ja.yaml
+  fi
 fi
-fi
+
 echo "${DATASET} の最新ファイルは ${OUTDIR} に出力されました"
 #
 # 完了
