@@ -1,6 +1,6 @@
-Last update 2021-06-09
+Last update 2021-06-25
 * Togovar RDF データ 
-  * RDF作成対象7データセット
+  * RDF作成対象データセット
     | データセット名     | 更新頻度     | 更新確認     | コンバートしたファイルの最新versionへのリンク | 
     |-------------|-------------|-------------|--------------------------| 
     | [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/)| monthly| 月-金 20:30| [2021-06-03](https://togovar-stg.biosciencedbc.jp/public/virtuoso/clinvar/latest/)                | 
