@@ -37,7 +37,7 @@ now=`date "+%Y%m%d-%H%M%S"`
 echo "Started load.sh at $now"
 
 # latestの参照先のディレクトリを取得
-DATASETS=("clinvar" "ensembl" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo")
+DATASETS=("clinvar" "ensembl" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo" "mondo" "so" "go")
 WORK_DIR="${DOCKER_ROOT_DIR}/work"
 declare -A DATASETS_DATE
 
@@ -67,12 +67,13 @@ add_load_list ${LOAD_DATA_BASE}/virtuoso/hco/20180409 '*.ttl' 'http://togovar.bi
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hgnc/${DATASETS_DATE["hgnc"]} '*.ttl' 'http://togovar.biosciencedbc.jp/hgnc'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/medgen/${DATASETS_DATE["medgen"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/medgen'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/mesh/20201123  '*.nt.gz' 'http://togovar.biosciencedbc.jp/mesh'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/mondo/20201123  '*.owl' 'http://togovar.biosciencedbc.jp/mondo'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/mondo/${DATASETS_DATE["mondo"]} '*.owl' 'http://togovar.biosciencedbc.jp/mondo'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/nlm-catalog/${DATASETS_DATE["nlm-catalog"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/nlm-catalog'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pubmed/${DATASETS_DATE["pubmed"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/pubmed'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pubtator/${DATASETS_DATE["pubtator"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/pubtator'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pubcasefinder/20191005/graph-1/data  '*.ttl.gz' 'http://togovar.biosciencedbc.jp/pubcasefinder'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/so/20190301 '*.owl' 'http://togovar.biosciencedbc.jp/so'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/so/${DATASETS_DATE["so"]} '*.owl' 'http://togovar.biosciencedbc.jp/so'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/go/${DATASETS_DATE["go"]} '*.owl' 'http://togovar.biosciencedbc.jp/go'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl38/20201012  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl38'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/STY/20210201 '*.ttl' 'http://togovar.biosciencedbc.jp/sty'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/HPO/20210217 '*.owl' 'http://togovar.biosciencedbc.jp/hpo'
