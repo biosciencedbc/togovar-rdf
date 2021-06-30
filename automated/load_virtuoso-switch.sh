@@ -42,5 +42,7 @@ if [ -s ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log ]; then
   exit 1
 fi
 
+cp -r ${VIRTUOSO_DIR} /home/rundeck/virtuoso-tmp/
+
 echo "finish"
 
