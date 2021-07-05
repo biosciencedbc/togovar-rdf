@@ -42,10 +42,10 @@ TARGET_DATASETS['mondo']=true
 #  データセット一覧に含まれているかチェック
 #
 if [ ${#DATASET} == 0 ]; then
-  echo "Usage: run.sh [-f] [-P number of threads] DATASET"
+  echo "Usage: convert_rdf.sh [-f] [-P number of threads] DATASET"
   exit 0
 elif ! test "${TARGET_DATASETS[$DATASET]+isset}"; then
-  echo "Usage: run.sh [-f] [-P number of threads] DATASET"
+  echo "Usage: convert_rdf.sh [-f] [-P number of threads] DATASET"
   exit 0
 fi  
 
