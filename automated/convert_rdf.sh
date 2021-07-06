@@ -44,11 +44,19 @@ TARGET_DATASETS['so']=true
 #  データセット一覧に含まれているかチェック
 #
 if [ ${#DATASET} == 0 ]; then
+<<<<<<< HEAD
   echo "Usage: run.sh [-f] [-P number of threads] DATASET"
   exit 1
 elif ! test "${TARGET_DATASETS[$DATASET]+isset}"; then
   echo "Usage: run.sh [-f] [-P number of threads] DATASET"
   exit 1
+=======
+  echo "Usage: convert_rdf.sh [-f] [-P number of threads] DATASET"
+  exit 0
+elif ! test "${TARGET_DATASETS[$DATASET]+isset}"; then
+  echo "Usage: convert_rdf.sh [-f] [-P number of threads] DATASET"
+  exit 0
+>>>>>>> 2390728d14d8ad08d023fee6554c19a6c421ce2e
 fi  
 
 #  作業用ディレクトリ (docker run の vオプションに指定するディレクトリはホスト側のディレクトリを参照する)
