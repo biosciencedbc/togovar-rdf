@@ -38,15 +38,17 @@ TARGET_DATASETS['pubtator']=true
 TARGET_DATASETS['hgnc']=true
 TARGET_DATASETS['efo']=true
 TARGET_DATASETS['mondo']=true
+TARGET_DATASETS['go']=true
+TARGET_DATASETS['so']=true
 #
 #  データセット一覧に含まれているかチェック
 #
 if [ ${#DATASET} == 0 ]; then
   echo "Usage: run.sh [-f] [-P number of threads] DATASET"
-  exit 0
+  exit 1
 elif ! test "${TARGET_DATASETS[$DATASET]+isset}"; then
   echo "Usage: run.sh [-f] [-P number of threads] DATASET"
-  exit 0
+  exit 1
 fi  
 
 #  作業用ディレクトリ (docker run の vオプションに指定するディレクトリはホスト側のディレクトリを参照する)
