@@ -1,0 +1,12 @@
+title: Ensembl for GRCh38
+website: https://www.ensembl.org/
+description: Ensembl プロジェクトで作成されたヒトゲノムデータセット（参照ゲノムのバージョンは GRCh38）です。
+tags: [ Gene, Genome, cDNA, Protein, Sequence, Ontology/ Terminology/Nomenclature ]
+provider: EMBL-EBI
+creators:
+  - name: Med2RDF project
+    affiliation: http://med2rdf.org/
+version: release_104
+issued: 2021-02-23
+licenses:
+  - http://www.ensembl.org/info/about/legal/disclaimer.html 

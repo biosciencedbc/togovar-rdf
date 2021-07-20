@@ -6,8 +6,8 @@ provider: National Center for Biotechnology Information
 creators:
   - name: Med2RDF project
     affiliation: http://med2rdf.org/
-version: release_20210217
-issued: 2021-02-17
+version: release_20210223
+issued: 2021-02-23
 licenses:
   - https://www.ncbi.nlm.nih.gov/home/about/policies/
   - Source\: U.S. National Library of Medicine.

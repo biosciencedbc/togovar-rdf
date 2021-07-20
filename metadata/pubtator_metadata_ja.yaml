@@ -8,8 +8,8 @@ creators:
     affiliation: ライフサイエンス統合データベースセンター
   - name: 建石 由佳
     affiliation: バイオサイエンスデータベースセンター
-version: release_20210217
-issued: 2021-02-17
+version: release_20210223
+issued: 2021-02-23
 licenses:
   - https://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral/README.txt
   - Source\: U.S. National Library of Medicine.

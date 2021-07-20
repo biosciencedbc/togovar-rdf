@@ -1,0 +1,12 @@
+title: Ensembl for GRCh38
+website: https://www.ensembl.org/
+description: Human genome datasets produced by the Ensembl project. The version of a reference genome is GRCh38
+tags: [ Gene, Genome, cDNA, Protein, Sequence, Ontology/ Terminology/Nomenclature ]
+provider: EMBL-EBI
+creators:
+  - name: Med2RDF project
+    affiliation: http://med2rdf.org/
+version: release_104
+issued: 2021-02-23
+licenses:
+  - http://www.ensembl.org/info/about/legal/disclaimer.html 

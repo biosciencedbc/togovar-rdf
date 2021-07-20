@@ -6,8 +6,8 @@ provider: National Institute of Technology and Evaluation
 creators:
   - name: Med2RDF project
     affiliation: http://med2rdf.org/
-    version: release_20210216
-issued: 2021-02-16
+    version: release_20210222
+issued: 2021-02-22
 licenses:
   - https://www.nlm.nih.gov/databases/download.html
   - Source\: U.S. National Library of Medicine.

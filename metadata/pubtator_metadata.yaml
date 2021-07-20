@@ -8,8 +8,8 @@ creators:
     affiliation: Database Center for Life Science
   - name: Yuka Tateisi
     affiliation: National Bioscience Database Center
-version: release_20210217
-issued: 2021-02-17
+version: release_20210223
+issued: 2021-02-23
 licenses:
   - https://ftp.ncbi.nlm.nih.gov/pub/lu/PubTatorCentral/README.txt
   - Source\: U.S. National Library of Medicine.
