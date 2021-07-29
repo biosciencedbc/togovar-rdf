@@ -30,7 +30,8 @@ source "${SCRIPT_DIR}/global.conf"
 #
 declare -A TARGET_DATASETS
 TARGET_DATASETS['clinvar']=true
-TARGET_DATASETS['ensembl']=true
+TARGET_DATASETS['ensembl_grch37']=true
+TARGET_DATASETS['ensembl_grch38']=true
 TARGET_DATASETS['nlm-catalog']=true
 TARGET_DATASETS['medgen']=true
 TARGET_DATASETS['pubmed']=true
