@@ -7,11 +7,15 @@
 
 # メタデータシート作成フラグ
 MAKE_MATADATA=1
-
+# Ensemblかどうか
+ENSEMBL=0
 while getopts n OPT
 do
   case $OPT in
-    n) MAKE_MATADATA=0 ;;
+    n) MAKE_MATADATA=0 
+      ;;
+    e) ENSEMBL=1
+      ;;
   esac
 done
 shift $(($OPTIND - 1))
@@ -41,6 +45,7 @@ TARGET_DATASETS['efo']=true
 TARGET_DATASETS['mondo']=true
 TARGET_DATASETS['go']=true
 TARGET_DATASETS['so']=true
+TARGET_DATASETS['gwas-catalog']=true
 #
 #  データセット一覧に含まれているかチェック
 #
@@ -130,7 +135,7 @@ if [ ${MAKE_MATADATA} -eq 1 ]; then
   sed -i -e "s/issued: .*$/issued: ${YYYY_MM_DD}/" ${OUTDIR}/metadata_ja.yaml
 
   # バージョン(version)を更新する、Ensemblの場合はアーカイブファイルと同じ場所に保存されているversionを記載したファイルを参照する
-  if [ ${DATASET} = "ensembl" ]; then
+  if [ ${ENSEMBL} -eq 1 ]; then
     ENSEMBL_VERSION=`cat ${WORKDIR_ROOT}/rdf-ensembl_download/version.json | jq '.releases[0]'`
     sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata.yaml 
     sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata_ja.yaml

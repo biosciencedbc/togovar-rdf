@@ -41,6 +41,7 @@ TARGET_DATASETS['efo']=true
 TARGET_DATASETS['mondo']=true
 TARGET_DATASETS['go']=true
 TARGET_DATASETS['so']=true
+TARGET_DATASETS['gwas-catalog']=true
 #
 #  データセット一覧に含まれているかチェック
 #

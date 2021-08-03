@@ -37,7 +37,7 @@ now=`date "+%Y%m%d-%H%M%S"`
 echo "Started load.sh at $now"
 
 # latestの参照先のディレクトリを取得
-DATASETS=("clinvar" "ensembl" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo" "mondo" "so" "go")
+DATASETS=("clinvar" "ensembl_grch37" "ensembl_grch38" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo" "mondo" "so" "go" "gwas-catalog")
 WORK_DIR="${DOCKER_ROOT_DIR}/work"
 declare -A DATASETS_DATE
 
@@ -60,8 +60,8 @@ add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3 '10K.*.nt.gz' 'htt
 add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3 'ExAC.*.ttl.gz' 'http://togovar.biosciencedbc.jp/variation/frequency/exac'
 
 add_load_list ${LOAD_DATA_BASE}/virtuoso/clinvar/${DATASETS_DATE["clinvar"]} '*.ttl.gz' 'http://togovar.biosciencedbc.jp/clinvar'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl/${DATASETS_DATE["ensembl"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl37'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/gwas-catalog/20210614 '*' 'http://togovar.biosciencedbc.jp/gwas-catalog'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl_grch37/${DATASETS_DATE["ensembl_grch37"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl37'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/gwas-catalog/${DATASETS_DATE["gwas-catalog"]} '*' 'http://togovar.biosciencedbc.jp/gwas-catalog'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/efo/${DATASETS_DATE["efo"]} '*.owl' 'http://togovar.biosciencedbc.jp/efo'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hco/20180409 '*.ttl' 'http://togovar.biosciencedbc.jp/hco'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hgnc/${DATASETS_DATE["hgnc"]} '*.ttl' 'http://togovar.biosciencedbc.jp/hgnc'
@@ -74,7 +74,7 @@ add_load_list ${LOAD_DATA_BASE}/virtuoso/pubtator/${DATASETS_DATE["pubtator"]}  
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pubcasefinder/20191005/graph-1/data  '*.ttl.gz' 'http://togovar.biosciencedbc.jp/pubcasefinder'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/so/${DATASETS_DATE["so"]} '*.owl' 'http://togovar.biosciencedbc.jp/so'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/go/${DATASETS_DATE["go"]} '*.owl' 'http://togovar.biosciencedbc.jp/go'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl38/20201012  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl38'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl_grch38/${DATASETS_DATE["ensembl_grch38"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl38'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/STY/20210201 '*.ttl' 'http://togovar.biosciencedbc.jp/sty'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/HPO/20210217 '*.owl' 'http://togovar.biosciencedbc.jp/hpo'
 #add_load_list ${LOAD_DATA_BASE}/virtuoso/colil/20190528 '*.nt.gz' 'http://togovar.biosciencedbc.jp/colil'
