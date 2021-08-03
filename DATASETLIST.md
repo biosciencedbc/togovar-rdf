@@ -1,4 +1,4 @@
-Last update 2021-07-21
+Last update 2021-08-03
 * Togovar RDF データ 
   * RDF作成対象データセット
     | データセット名     | 更新頻度     | 更新確認     | コンバートしたファイルの最新versionへのリンク | 
@@ -11,6 +11,7 @@ Last update 2021-07-21
     | [Ensembl GRCh37](https://grch37.ensembl.org/index.html) | 2,3か月に1回| 月-金 20:00|  [2021-05-06 (Ensembl 104)](https://togovar-stg.biosciencedbc.jp/public/virtuoso/ensembl_grch37/latest/) | 
     | [Ensembl GRCh38](https://www.ensembl.org/index.html) | 2,3か月に1回| 月-金 20:00|  [2021-07-27 (Ensembl 104)](https://togovar-stg.biosciencedbc.jp/public/virtuoso/ensembl_grch38/latest/) |
     | [HGNC](https://www.genenames.org/) | daily| 月-金 19:00|  [2021-08-02](https://togovar-stg.biosciencedbc.jp/public/virtuoso/hgnc/latest/)    | 
+    | [GWAS-Catalog](https://www.ebi.ac.uk/gwas/home) | monthly| 月-金 19:00|  [2021-08-02](https://togovar-stg.biosciencedbc.jp/public/virtuoso/gwas-catalog/latest/)    | 
     | [EFO](https://) | monthly| 月-金 19:00|  [2021-07-19 (3.32.0)](https://togovar-stg.biosciencedbc.jp/public/virtuoso/efo/latest/)    | 
     | [MONDO](https://) | monthly| 月-金 19:00|  [2021-07-14](https://togovar-stg.biosciencedbc.jp/public/virtuoso/mondo/latest/)    | 
     | [SO](https://) | monthly| 月-金 19:00|  [2021-07-14](https://togovar-stg.biosciencedbc.jp/public/virtuoso/so/latest/)    | 
