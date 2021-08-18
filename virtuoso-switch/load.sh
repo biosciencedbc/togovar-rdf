@@ -37,7 +37,7 @@ now=`date "+%Y%m%d-%H%M%S"`
 echo "Started load.sh at $now"
 
 # latestの参照先のディレクトリを取得
-DATASETS=("clinvar" "ensembl_grch37" "ensembl_grch38" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo" "mondo" "so" "go" "gwas-catalog")
+DATASETS=("clinvar" "ensembl_grch37" "ensembl_grch38" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo" "mondo" "so" "go" "gwas-catalog" "mesh")
 WORK_DIR="${DOCKER_ROOT_DIR}/work"
 declare -A DATASETS_DATE
 
@@ -66,7 +66,7 @@ add_load_list ${LOAD_DATA_BASE}/virtuoso/efo/${DATASETS_DATE["efo"]} '*.owl' 'ht
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hco/20180409 '*.ttl' 'http://togovar.biosciencedbc.jp/hco'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hgnc/${DATASETS_DATE["hgnc"]} '*.ttl' 'http://togovar.biosciencedbc.jp/hgnc'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/medgen/${DATASETS_DATE["medgen"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/medgen'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/mesh/20201123  '*.nt.gz' 'http://togovar.biosciencedbc.jp/mesh'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/mesh/${DATASETS_DATE["mesh"]}  '*.nt.gz' 'http://togovar.biosciencedbc.jp/mesh'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/mondo/${DATASETS_DATE["mondo"]} '*.owl' 'http://togovar.biosciencedbc.jp/mondo'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/nlm-catalog/${DATASETS_DATE["nlm-catalog"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/nlm-catalog'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pubmed/${DATASETS_DATE["pubmed"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/pubmed'
