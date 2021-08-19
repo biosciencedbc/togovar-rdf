@@ -47,6 +47,7 @@ TARGET_DATASETS['go']=true
 TARGET_DATASETS['so']=true
 TARGET_DATASETS['gwas-catalog']=true
 TARGET_DATASETS['mesh']=true
+TARGET_DATASETS['hco']=true
 #
 #  データセット一覧に含まれているかチェック
 #
