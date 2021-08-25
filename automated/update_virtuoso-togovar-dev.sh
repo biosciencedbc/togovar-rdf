@@ -17,6 +17,12 @@ TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-develop-docker
 #TOGOVAR_VIRTUOSO_LOADER_DIR=/home/togovar/togovar/togovar-dev/togovar-virtuoso-loader/togovar-data/data/virtuoso
 #STORE_BK_DIR=/mnt/share/togovar/store.bk/dgx1/data/virtuoso
 
+# ロックファイルの確認、あれば切替用virtuosoへのロードジョブ実施中として異常終了
+if [ -e ${VIRTUOSO_SWITCH_DIR}/job2.lck ];then
+  echo "切替用virtuosoへのロードジョブが実行中です"
+  exit 1
+fi
+
 # togovar-devの停止
 cd ${TOGOVAR_DEV_DOCKER_DIR}
 docker-compose exec -T virtuoso isql-v 1111 dba dba exec="checkpoint"
