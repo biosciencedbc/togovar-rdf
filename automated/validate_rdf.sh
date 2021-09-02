@@ -9,7 +9,7 @@
 MAKE_MATADATA=1
 # Ensemblかどうか
 ENSEMBL=0
-while getopts n OPT
+while getopts ne OPT
 do
   case $OPT in
     n) MAKE_MATADATA=0 
@@ -28,7 +28,7 @@ DATASET=$1
 SCRIPT_DIR="$(cd $(dirname $0); pwd)"
 source "${SCRIPT_DIR}/global.conf"
 WORKDIR_ROOT=${SCRIPT_DIR}/../work
-
+WORKDIR_DOWNLOAD=${WORKDIR_ROOT}/rdf-${DATASET}_download
 #
 #  処理対象となっているデータセット一覧
 #
@@ -60,11 +60,12 @@ elif ! test "${TARGET_DATASETS[$DATASET]+isset}"; then
 fi
 
 # 更新日時ファイルからRDFファイルを出力したディレクトリを確認
-YYYYMMDD=`cat ${WORKDIR_ROOT}/${DATASET}_update.txt`
+YYYYMMDD=`cat ${WORKDIR_ROOT}/rdf-${DATASET}_download/update.txt`
 #echo ${YYYYMMDD}
 OUTDIR_ROOT=${OUTDIR}/${DATASET}
 LATESTDIR=${OUTDIR}/${DATASET}/latest
 OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
+DATASETLIST_DIR=${WORKDIT_ROOT}/create_DATASETLIST
 
 #
 # RDFファイルの有無を確認
@@ -86,7 +87,9 @@ RESULT=`docker run --rm -v ${OUTDIR}:/load check-rdf 2>&1`
 LOADCOUNT=`echo "${RESULT}" | sed -n -e 1p`
 ERRORCOUNT=`echo "${RESULT}" | sed -n -e 2p`
 
-#echo "RESULT : ${RESULT}"
+echo "RESULT : ${RESULT}"
+echo "LOADCOUNT : ${LOADCOUNT}"
+echo "ERRORCOUNT : ${ERRORCOUNT}"
 
 #
 # ロード結果を確認してエラーがあればエラーを出力して異常終了
@@ -113,10 +116,12 @@ fi
 cd ${OUTDIR_ROOT}
 ln -snf ${YYYYMMDD} latest
 cd - > /dev/null
+cp ${WORKDIR_DOWNLOAD}/update.txt ${DATASETLIST_DIR}/${DATASET}_update.txt
 
-#
-# latestに設定したディレクトリをファイルに出力
-#
+# versionを記載したファイルがある場合work直下にコピーする
+if [ -e ${WORKDIR_DOWNLOAD}/version.txt ]; then
+  cp ${WORKDIR_DOWNLOAD}/version.txt  ${DATASETLIST_DIR}/${DATASET}_version.txt
+fi
 
 
 #
@@ -138,7 +143,7 @@ if [ ${MAKE_MATADATA} -eq 1 ]; then
 
   # バージョン(version)を更新する、Ensemblの場合はアーカイブファイルと同じ場所に保存されているversionを記載したファイルを参照する
   if [ ${ENSEMBL} -eq 1 ]; then
-    ENSEMBL_VERSION=`cat ${WORKDIR_ROOT}/rdf-ensembl_download/version.json | jq '.releases[0]'`
+    ENSEMBL_VERSION=`cat ${WORKDIR_ROOT}/rdf-${DATASET}_download/version.json | jq '.releases[0]'`
     sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata.yaml 
     sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata_ja.yaml
   else

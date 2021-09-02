@@ -154,7 +154,7 @@ else
   # cat ${OUTDIR}/stdout.log 
   # ステップ2に渡すディレクトリ作成名(作成日時)を更新する
   #awk -v date=${YYYYMMDD} -v dataset=${DATASET} '{FS="\t";OFS="\t"}$1==dataset{$2=date}1' ${WORKDIR_ROOT}/rdf-update.tsv | tee ${WORKDIR_ROOT}/rdf-update.tsv >/dev/null 2>&1
-  echo "${YYYYMMDD}" > ${WORKDIR_ROOT}/${DATASET}_update.txt
+  echo "${YYYYMMDD}" > ${WORKDIR_ROOT}/rdf-${DATASET}_download/update.txt
   exit 0
 fi
 
