@@ -20,10 +20,14 @@ shift $(($OPTIND - 1))
 
 # RDF化対象のデータセット名 
 DATASET=$1
+# 変数名変換(変数名にハイフンが使用できないためハイフンをアンダーバに変換)
+DATASET_VAL=`echo ${DATASET} |  sed -e s/-/_/g `
 
 # global.confを読み込む
 SCRIPT_DIR="$(cd $(dirname $0); pwd)"
 source "${SCRIPT_DIR}/global.conf"
+source "${SCRIPT_DIR}/submodules.conf"
+
 
 #
 #  処理対象となっているデータセット一覧
@@ -56,9 +60,11 @@ fi
 #  作業用ディレクトリ (docker run の vオプションに指定するディレクトリはホスト側のディレクトリを参照する)
 WORKDIR_ROOT="$(cd $(dirname $0); pwd)/../work"
 WORKDIR="${WORKDIR_ROOT}/rdf-${DATASET}"
-WORKDIR_DOWNLOAD="${WORKDIR_HOST}/rdf-${DATASET}_download"
+WORKDIR_DOWNLOAD="${WORKDIR_ROOT}/rdf-${DATASET}_download"
+WORKDIR_DOWNLOAD_HOST="${WORKDIR_HOST}/rdf-${DATASET}_download"
 WORKDIR_LOG="${WORKDIR_ROOT}/rdf-${DATASET}_logs"
 YYYYMMDD=`LANG=C; date +%Y%m%d`
+sub_branch="${DATASET_VAL}_branch"
 #
 #  dockerファイルをgithubからpullする
 #  ディレクトリがない場合はclone あればpull 
@@ -83,8 +89,7 @@ elif [ -d "${WORKDIR}" ]; then
       echo "コンバータに更新がありました"
     fi
   else
-    #git submodule update --recursive --init >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
-    git submodule foreach git pull origin master >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
+    git submodule foreach git pull origin ${!sub_branch} >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
   
     git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l` 
     # git pullのログが2行ない場合（更新がある場合）
@@ -95,7 +100,7 @@ elif [ -d "${WORKDIR}" ]; then
     fi
   fi
 else
-  mkdir -p $WORKDIR_ROOT && mkdir -p ${WORKDIR_LOG}
+  mkdir -p ${WORKDIR_ROOT} && mkdir -p ${WORKDIR_LOG}
   cd ${WORKDIR_ROOT}
   git clone https://github.com/biosciencedbc/rdf-${DATASET} > ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
     
@@ -104,7 +109,7 @@ else
   # gitのサブモジュールを最新に更新する
   #
   git submodule update --recursive --init >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
-  git submodule foreach git pull origin master >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
+  git submodule foreach git pull origin ${!sub_branch} >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
   OPTION_f="-f"
   echo "コンバータに更新がありました"
 fi
@@ -132,17 +137,18 @@ if [ -e ${OUTDIR} ]; then
   fi
 # 出力ディレクトリがない場合、出力先ディレクトリを作成する
 else 
-  mkdir -p $OUTDIR
+  mkdir -p ${OUTDIR}
 fi
+
+mkdir -p ${WORKDIR_DOWNLOAD}
 
 #
 # docker containerの実行
 # pull でコンバータに更新がある場合は -f つけて実行
 # docker stop/killでサブプロセスも含めて綺麗に停止できそう。stopもSIGTERMでなくSIGKILLで止めているようなのでkillの方が速く止まる
 #
-docker run --rm -v ${WORKDIR_DOWNLOAD}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} ${OPTION_f} ${OPTION_P} 1> ${WORKDIR_LOG}/${YYYYMMDD}_stdout.log  2> ${WORKDIR_LOG}/${YYYYMMDD}_stderr.log
+docker run --rm -v ${WORKDIR_DOWNLOAD_HOST}:/work -v ${OUTDIR}:/data --name "rdf-${DATASET}-${YYYYMMDD}" rdf-${DATASET} ${OPTION_f} ${OPTION_P} 1> ${WORKDIR_LOG}/${YYYYMMDD}_stdout.log  2> ${WORKDIR_LOG}/${YYYYMMDD}_stderr.log
 
-#convert_rdf_make.sh
 # 出力されたログファイルからエラーの有無を確認
 # エラーがあれば異常終了
 #
@@ -151,7 +157,6 @@ if [ ! $LOG_SIZE -eq 0 ]; then
   cat ${WORKDIR_LOG}/${YYYYMMDD}_stderr.log 1>&2
   exit 1
 else
-  # cat ${OUTDIR}/stdout.log 
   # ステップ2に渡すディレクトリ作成名(作成日時)を更新する
   #awk -v date=${YYYYMMDD} -v dataset=${DATASET} '{FS="\t";OFS="\t"}$1==dataset{$2=date}1' ${WORKDIR_ROOT}/rdf-update.tsv | tee ${WORKDIR_ROOT}/rdf-update.tsv >/dev/null 2>&1
   echo "${YYYYMMDD}" > ${WORKDIR_ROOT}/rdf-${DATASET}_download/update.txt
