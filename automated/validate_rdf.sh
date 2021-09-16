@@ -65,7 +65,8 @@ YYYYMMDD=`cat ${WORKDIR_ROOT}/rdf-${DATASET}_download/update.txt`
 OUTDIR_ROOT=${OUTDIR}/${DATASET}
 LATESTDIR=${OUTDIR}/${DATASET}/latest
 OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
-DATASETLIST_DIR=${WORKDIT_ROOT}/create_DATASETLIST
+DATASETLIST_DIR=${WORKDIR_ROOT}/create_DATASETLIST
+
 
 #
 # RDFファイルの有無を確認
@@ -87,9 +88,9 @@ RESULT=`docker run --rm -v ${OUTDIR}:/load check-rdf 2>&1`
 LOADCOUNT=`echo "${RESULT}" | sed -n -e 1p`
 ERRORCOUNT=`echo "${RESULT}" | sed -n -e 2p`
 
-echo "RESULT : ${RESULT}"
-echo "LOADCOUNT : ${LOADCOUNT}"
-echo "ERRORCOUNT : ${ERRORCOUNT}"
+#echo "RESULT : ${RESULT}"
+#echo "LOADCOUNT : ${LOADCOUNT}"
+#echo "ERRORCOUNT : ${ERRORCOUNT}"
 
 #
 # ロード結果を確認してエラーがあればエラーを出力して異常終了
@@ -116,13 +117,13 @@ fi
 cd ${OUTDIR_ROOT}
 ln -snf ${YYYYMMDD} latest
 cd - > /dev/null
+# 実行日が記載されたファイルをDATASETLIST.md用にコピーする
 cp ${WORKDIR_DOWNLOAD}/update.txt ${DATASETLIST_DIR}/${DATASET}_update.txt
 
-# versionを記載したファイルがある場合work直下にコピーする
+# versionを記載したファイルがあるDATASETLIST.md用にコピーする
 if [ -e ${WORKDIR_DOWNLOAD}/version.txt ]; then
   cp ${WORKDIR_DOWNLOAD}/version.txt  ${DATASETLIST_DIR}/${DATASET}_version.txt
 fi
-
 
 #
 # メタデータファイルを実行日で更新して対象ディレクトリに出力
