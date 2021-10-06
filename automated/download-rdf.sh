@@ -81,7 +81,7 @@ if [ ${DATASET} = mesh ]; then
   # 出力先ディレクトリにコピー
   cp mesh.nt.gz ${OUTDIR}
   chmod 777 ${OUTDIR}/mesh.nt.gz
-  echo "${YYYYMMDD}" > ${WORKDIR_ROOT}/${DATASET}_update.txt
+  echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
   exit 0
 fi
 
@@ -96,7 +96,7 @@ if [ ${DATASET} = hco ]; then
   
   mkdir -p ${WORKDIR_DOWNLOAD} && mkdir -p ${WORKDIR_LOG} && mkdir -p ${OUTDIR}
   # ダウンロードディレクトリにファイルがある場合(初回実行でない)
-  if [ -f ${WORKDIR_DOWNLOAD} ]; then
+  if [ -n "$(ls $WORKDIR_DOWNLOAD)" ]; then
     cd ${WORKDIR_DOWNLOAD}
     git pull > ${WORKDIR_LOG}/${YYYYMMDD}_git.log
     git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
@@ -114,7 +114,7 @@ if [ ${DATASET} = hco ]; then
   # 出力先ディレクトリにコピー
   cp hco.ttl ${OUTDIR} && cp hco_head.ttl ${OUTDIR}
   chmod 777 ${OUTDIR}/hco.ttl ${OUTDIR}/hco_head.ttl
-  echo "${YYYYMMDD}" > ${WORKDIR_ROOT}/${DATASET}_update.txt
+  echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
   exit 0  
 fi
 
