@@ -25,7 +25,7 @@ done
 # virtuosoの起動
 /virtuoso.sh > /dev/null 2>&1 &
 
-sleep 60
+sleep 180
 
 # ロード対象ファイルの追加(ロード対象ディレクトリは/loadに固定) 
 ${ISQL} -H ${HOST} -S ${PORT} -U ${USER} -P ${PASSWORD} VERBOSE=OFF BANNER=OFF EXEC="ld_dir('/load', '${PATTERN}', 'check');"
