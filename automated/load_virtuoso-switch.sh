@@ -26,7 +26,7 @@ if [ -d ${VIRTUOSO_DIR} ];then
   rm -rf ${VIRTUOSO_DIR}
 fi
 
-mkdir ${VIRTUOSO_DIR}
+mkdir ${VIRTUOSO_DIR} && mkdir -p ${DOCKER_LOG_DIR}
 # ロックファイルの作成
 touch ${VIRTUOSO_DIR}/job2.lck
 
@@ -38,7 +38,7 @@ docker build --tag virtuoso-switch ${DOCKER_DIR}
 echo "load start "
 
 # ロードの実行
-docker run --rm -v ${VIRTUOSO_HOST_DIR}:/data -v ${OUTDIR}:/load/virtuoso:ro virtuoso-switch 1> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stdout.log 2> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log
+docker run --rm -v ${VIRTUOSO_HOST_DIR}:/database -v ${OUTDIR}:/load/virtuoso:ro virtuoso-switch 1> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stdout.log 2> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log
 
 echo "load finish"
 
@@ -48,7 +48,7 @@ if [ -s ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log ]; then
   exit 1
 fi
 
-cp -r ${VIRTUOSO_DIR} /home/rundeck/virtuoso-tmp/
+cp -r ${VIRTUOSO_DIR} /mnt/share/togovar/virtuoso-tmp
 
 # ロックファイルの削除
 rm ${VIRTUOSO_DIR}/job2.lck
