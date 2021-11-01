@@ -1,12 +1,13 @@
 #!/bin/bash
 
+#
 # 切替用virtuosoへのロード実行
 # ロード対象ディレクトリ: $LOAD_DATA_BASE
-# virtuoso関連ファイル: /data
+# virtuoso関連ファイル: /database
 # 
 
 HOST=localhost
-ISQL=isql-v
+ISQL=isql
 PORT=1111
 USER=dba
 PASSWORD=dba
@@ -29,9 +30,9 @@ function add_load_list() {
 LOAD_DATA_BASE="/load"
 
 # virtuosoの起動
-/virtuoso.sh > /dev/null 2>&1 &
+/virtuoso-entrypoint.sh > /dev/null 2>&1 &
 
-sleep 60
+sleep 180
 
 now=`date "+%Y%m%d-%H%M%S"`
 echo "Started load.sh at $now"
@@ -131,12 +132,15 @@ if [ -s /error.log ]; then
 fi
 
 # ロードした7つの対象データセットの更新日をファイルに出力
-DATE_FILE=/data/dataset_date.tsv
+DATE_FILE=/database/dataset_date.tsv
 touch ${DATE_FILE}
 
 for dataset in ${!DATASETS_DATE[@]}; do
   echo -e "${dataset}\t${DATASETS_DATE[$dataset]}">> ${DATE_FILE}
 done
+
+cd /database 
+chmod 666 $(ls)
 
 now=`date "+%Y%m%d-%H%M%S"`
 echo "Finished load.sh at $now"
