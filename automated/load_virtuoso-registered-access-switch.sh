@@ -18,33 +18,6 @@ VIRTUOSO_HOST_DIR="${ROOT_DIR}/virtuoso-registered-access_load/data"
 TEMPLATE_VIRTUOSO_DIR="${DOCKER_ROOT_DIR}/virtuoso-registered-access_load/template"
 LOAD_DIR="/mnt/share/togovar_h/load/virtuoso-registered-access"
 
-echo "copy file"
-
-# コピー前のハッシュ値取得
-#echo `md5sum ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx | awk '{ print $1 }'` > ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx_md5
-#echo `md5sum ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db | awk '{ print $1 }'` > ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db_md5
-#
-# テンプレートのコピー
-# cp ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx ${VIRTUOSO_DIR}/virtuoso.trx
-# cp ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db ${VIRTUOSO_DIR}/virtuoso.db
-#
-# コピー後のハッシュ値取得
-#echo `md5sum ${VIRTUOSO_DIR}/virtuoso.trx_tmp | awk '{ print $1 }'` > ${VIRTUOSO_DIR}/virtuoso.trx_md5
-#echo `md5sum ${VIRTUOSO_DIR}/virtuoso.db_tmp | awk '{ print $1 }'` > ${VIRTUOSO_DIR}/virtuoso.db_md5
-#
-# コピー前後のMDハッシュ値比較
-#diff ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx_md5 ${VIRTUOSO_DIR}/virtuoso.trx_md5
-#exec_1=`echo $?`
-#diff ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db_md5 ${VIRTUOSO_DIR}/virtuoso.db_md5
-#exec_2=`echo $?`
-#
-# コピーしたファイルのハッシュ値が一致しない場合一時ファイルを削除して異常終了する
-#if [ ${exec_1} -ne 0 ] || [ ${exec_2} -ne 0 ]; then
-#  echo "DBファイルのコピーに失敗しました"
-#  exit 1
-#fi
-
-
 # virtuosoの初期化
 if [ -d ${VIRTUOSO_DIR} ];then
   rm -rf ${VIRTUOSO_DIR}
@@ -54,6 +27,32 @@ mkdir ${VIRTUOSO_DIR}
 # ロックファイルの作成
 touch ${VIRTUOSO_DIR}/job2.lck
 
+
+echo "copy file"
+
+# コピー前のハッシュ値取得
+echo `md5sum ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx | awk '{ print $1 }'` > ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx_md5
+echo `md5sum ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db | awk '{ print $1 }'` > ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db_md5
+
+# テンプレートのコピー
+ cp ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx ${VIRTUOSO_DIR}/virtuoso.trx
+ cp ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db ${VIRTUOSO_DIR}/virtuoso.db
+
+# コピー後のハッシュ値取得
+echo `md5sum ${VIRTUOSO_DIR}/virtuoso.trx | awk '{ print $1 }'` > ${VIRTUOSO_DIR}/virtuoso.trx_md5
+echo `md5sum ${VIRTUOSO_DIR}/virtuoso.db | awk '{ print $1 }'` > ${VIRTUOSO_DIR}/virtuoso.db_md5
+
+# コピー前後のMDハッシュ値比較
+diff ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx_md5 ${VIRTUOSO_DIR}/virtuoso.trx_md5
+exec_1=`echo $?`
+diff ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db_md5 ${VIRTUOSO_DIR}/virtuoso.db_md5
+exec_2=`echo $?`
+
+# コピーしたファイルのハッシュ値が一致しない場合異常終了する
+if [ ${exec_1} -ne 0 ] || [ ${exec_2} -ne 0 ]; then
+  echo "DBファイルのコピーに失敗しました"
+  exit 1
+fi
 
 # Docker の更新
 docker rmi virtuoso-registered-access-switch

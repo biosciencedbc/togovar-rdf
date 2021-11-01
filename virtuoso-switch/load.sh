@@ -79,8 +79,9 @@ add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl_grch38/${DATASETS_DATE["ensembl
 add_load_list ${LOAD_DATA_BASE}/virtuoso/STY/20210201 '*.ttl' 'http://togovar.biosciencedbc.jp/sty'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/HPO/20210217 '*.owl' 'http://togovar.biosciencedbc.jp/hpo'
 #add_load_list ${LOAD_DATA_BASE}/virtuoso/colil/20190528 '*.nt.gz' 'http://togovar.biosciencedbc.jp/colil'
-
-
+add_load_list ${LOAD_DATA_BASE}/virtuoso/gwas-catalog/study_sample_annotation '*.ttl' 'http://togovar.biosciencedbc.jp/gwas-catalog'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/hancestro '*.owl' 'http://togovar.biosciencedbc.jp/hancestro'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/pato '*.owl' 'http://togovar.biosciencedbc.jp/pato'
 
 #echo
 #echo  "Files to be loaded"
