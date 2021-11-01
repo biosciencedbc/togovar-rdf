@@ -1,4 +1,4 @@
-FROM tenforce/virtuoso:virtuoso7.2.4
+FROM openlink/virtuoso-opensource-7:7.2
 
 ENV VIRT_Parameters_NumberOfBuffers=2720000 \
     VIRT_Parameters_MaxDirtyBuffers=2000000 \
@@ -9,6 +9,6 @@ ENV VIRT_Parameters_NumberOfBuffers=2720000 \
 RUN mkdir /load
 
 ADD ./test.sh /test.sh
-RUN chmod 777 /test.sh && chmod 777 /virtuoso.sh
+RUN chmod 777 /test.sh && chmod 777 /virtuoso-entrypoint.sh
 
 ENTRYPOINT [ "/test.sh" ]
