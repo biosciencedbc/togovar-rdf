@@ -67,12 +67,12 @@ if [ ${DATASET} = mesh ]; then
   fi
 
   mkdir -p ${WORKDIR_DOWNLOAD} && mkdir -p ${WORKDIR_LOG} && mkdir -p ${OUTDIR}
-
+  echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
   # ワークディレクトリにダウンロード
   cd ${WORKDIR_DOWNLOAD}
   wget -N ftp://ftp.nlm.nih.gov/online/mesh/rdf/mesh.nt.gz 2> ${WORKDIR_LOG}/${YYYYMMDD}_stdout.log 
   chmod 777 mesh.nt.gz
-  num_of_newfiles=`egrep " saved \[+[0-9]+\]" "${WORKDIR_LOG}/${YYYYMMDD}_stdout.log" | grep -v "'.listing' saved" | wc -l`
+  num_of_newfiles=`egrep "\[+[0-9]+\]" "${WORKDIR_LOG}/${YYYYMMDD}_stdout.log" | grep -v ".listing" | wc -l`
   # 更新がなく、fオプションが指定されていなければ更新せず正常終了
   if [ ${num_of_newfiles} -eq 0 ] && [ ${FORCE_CONVERT} -eq 0 ]; then
     echo "mesh に更新はありません "
@@ -81,7 +81,6 @@ if [ ${DATASET} = mesh ]; then
   # 出力先ディレクトリにコピー
   cp mesh.nt.gz ${OUTDIR}
   chmod 777 ${OUTDIR}/mesh.nt.gz
-  echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
   exit 0
 fi
 
@@ -100,6 +99,7 @@ if [ ${DATASET} = hco ]; then
     cd ${WORKDIR_DOWNLOAD}
     git pull > ${WORKDIR_LOG}/${YYYYMMDD}_git.log
     git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
+    echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
     # gitログにAlready up to date.の文字列が出力されている場合(更新が無い)、更新が無い旨を出力して正常終了する
     if [ ${git_log} -e 1 ]; then
       echo "mesh に更新はありません "
@@ -108,13 +108,12 @@ if [ ${DATASET} = hco ]; then
   # ダウンロードディレクトリにファイルがない場合(初回実行の場合)  
   else
     git clone https://github.com/med2rdf/hco.git ${WORKDIR_DOWNLOAD}
-    
+    echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
   fi
   cd ${WORKDIR_DOWNLOAD}
   # 出力先ディレクトリにコピー
   cp hco.ttl ${OUTDIR} && cp hco_head.ttl ${OUTDIR}
   chmod 777 ${OUTDIR}/hco.ttl ${OUTDIR}/hco_head.ttl
-  echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
   exit 0  
 fi
 

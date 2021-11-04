@@ -1,8 +1,9 @@
 #!/bin/bash
 
+#
 # 切替用virtuosoへのロード実行
 # ロード対象ディレクトリ: $LOAD_DATA_BASE
-# virtuoso関連ファイル: /data
+# virtuoso関連ファイル: /database
 # 
 
 HOST=localhost
@@ -138,6 +139,9 @@ touch ${DATE_FILE}
 for dataset in ${!DATASETS_DATE[@]}; do
   echo -e "${dataset}\t${DATASETS_DATE[$dataset]}">> ${DATE_FILE}
 done
+
+cd /database 
+chmod 666 $(ls)
 
 now=`date "+%Y%m%d-%H%M%S"`
 echo "Finished load.sh at $now"
