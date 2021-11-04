@@ -62,7 +62,7 @@ docker build --tag virtuoso-switch ${DOCKER_DIR}
 echo "load start"
 
 # ロードの実行
-docker run --rm -v ${VIRTUOSO_HOST_DIR}:/data -v ${OUTDIR}:/load/virtuoso:ro virtuoso-switch 1> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stdout.log 2> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log
+docker run --rm -v ${VIRTUOSO_HOST_DIR}:/database -v ${OUTDIR}:/load/virtuoso:ro virtuoso-switch 1> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stdout.log 2> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log
 
 echo "load finish"
 

@@ -6,7 +6,7 @@
 # 
 
 HOST=localhost
-ISQL=isql-v
+ISQL=isql
 PORT=1111
 USER=dba
 PASSWORD=dba
@@ -29,7 +29,7 @@ function add_load_list() {
 LOAD_DATA_BASE="/load"
 
 # virtuosoの起動
-/virtuoso.sh > /dev/null 2>&1 &
+/virtuoso-entrypoint.sh > /dev/null 2>&1 &
 
 sleep 180
 
@@ -132,7 +132,7 @@ if [ -s /error.log ]; then
 fi
 
 # ロードした7つの対象データセットの更新日をファイルに出力
-DATE_FILE=/data/dataset_date.tsv
+DATE_FILE=/database/dataset_date.tsv
 touch ${DATE_FILE}
 
 for dataset in ${!DATASETS_DATE[@]}; do
