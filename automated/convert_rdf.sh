@@ -81,7 +81,7 @@ elif [ -d "${WORKDIR}" ]; then
   # サブモジュールの有無を確認
   sub_exist=`git submodule status | wc -l` 
   if [ $sub_exist -eq 0 ]; then
-    git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
+    git_log=`egrep "Already.*up.*to.*date" ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
     # git pullのログが1行ない場合（更新がある場合）
     # オプションfを指定してアーカイブファイルに更新がなくとも更新するようにする
     if [ ${git_log} -lt 1 ]; then
@@ -91,7 +91,7 @@ elif [ -d "${WORKDIR}" ]; then
   else
     git submodule foreach git pull origin ${!sub_branch} >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 2>&1
   
-    git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l` 
+    git_log=`egrep "Already.*up.*to.*date" ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l` 
     # git pullのログが2行ない場合（更新がある場合）
     # オプションfを指定してアーカイブファイルに更新がなくとも更新するようにする
     if [ ${git_log} -lt 2 ]; then
