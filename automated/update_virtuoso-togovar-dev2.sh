@@ -10,7 +10,7 @@ SCRIPT_DIR="$(cd $(dirname $0); pwd)"
 source "${SCRIPT_DIR}/global.conf"
 
 TOGOVAR_DEV_DIR=/home/rundeck/togovar-dev2/togovar-data/virtuoso
-TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-develop-docker
+TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-dev2/togovar-dev2-docker
 
 # ロックファイルの確認、あれば切替用virtuosoへのロードジョブ実施中として異常終了
 if [ -e ${VIRTUOSO_SWITCH_DIR}/job2.lck ];then
@@ -73,6 +73,7 @@ mv ${TOGOVAR_DEV_DIR}/virtuoso.db ${TOGOVAR_DEV_DIR}/virtuoso.db_bk
 # 差し替えの実行
 mv ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp ${TOGOVAR_DEV_DIR}/virtuoso.trx
 mv ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp ${TOGOVAR_DEV_DIR}/virtuoso.db
+cp ${VIRTUOSO_SWITCH_DIR}/dataset_date.tsv ${TOGOVAR_DEV_DIR}/dataset_date.tsv
 
 sleep 60
 
