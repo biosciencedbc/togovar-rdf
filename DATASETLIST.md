@@ -1,4 +1,4 @@
-Last update 2021-09-29
+Last update 2021-11-16
 * Togovar RDF データ 
   * RDF作成対象データセット
     | データセット名     | 更新頻度     | 更新確認     | コンバートしたファイルの最新versionへのリンク | 
