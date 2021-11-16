@@ -55,9 +55,9 @@ echo "update"
 
 # togovar-devの停止
 cd ${TOGOVAR_DEV_DOCKER_DIR}
-docker-compose exec -T virtuoso isql-v 1111 dba dba exec="checkpoint"
+docker-compose exec -T virtuoso isql 1111 dba dba exec="checkpoint"
 exec_3=`echo $?`
-docker-compose exec -T virtuoso isql-v 1111 dba dba -K
+docker-compose exec -T virtuoso isql 1111 dba dba -K
 exec_4=`echo $?`
 
 # togovar-devの停止に失敗した場合異常終了する
