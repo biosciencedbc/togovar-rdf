@@ -10,13 +10,18 @@
 SCRIPT_DIR="$(cd $(dirname $0); pwd)"
 source "${SCRIPT_DIR}/global.conf"
 
-YYYYMMDD=`LANG=C; date +%Y%m%d`
-VIRTUOSO_DIR="${DOCKER_ROOT_DIR}/data"
-DOCKER_DIR="${DOCKER_ROOT_DIR}/virtuoso-switch"
-DOCKER_LOG_DIR="${DOCKER_ROOT_DIR}/virtuoso-switch_logs"
-VIRTUOSO_HOST_DIR="${ROOT_DIR}/data"
-TEMPLATE_VIRTUOSO_DIR=""
+YYYYMMDD=`LANG=C; date +%Y%m%d`					# 実行日
+VIRTUOSO_DIR="${DOCKER_ROOT_DIR}/data"				# rundeckコンテナでのvirtuosoファイル出力先
+DOCKER_DIR="${DOCKER_ROOT_DIR}/virtuoso-switch"			# virtuosoのDockerfile配置先
+DOCKER_LOG_DIR="${DOCKER_ROOT_DIR}/virtuoso-switch_logs"	# ログの出力先
+VIRTUOSO_HOST_DIR="${ROOT_DIR}/data"				# virtuosoファイル出力先 
+TEMPLATE_VIRTUOSO_DIR=""					# gnomad当の事前ファイルがロードされているvirtuosoファイル
 
+# job2.lckが存在する場合、異常終了
+if [ -e ${VIRTUOSO_DIR}/job2.lck ]; then 
+  echo "ジョブ2は既に実行中です"
+  exit 1
+fi 
 
 # virtuosoの初期化
 if [ -d ${VIRTUOSO_DIR} ];then
@@ -24,9 +29,9 @@ if [ -d ${VIRTUOSO_DIR} ];then
 fi
 
 mkdir ${VIRTUOSO_DIR} && mkdir -p ${DOCKER_LOG_DIR}
+
 # ロックファイルの作成
 touch ${VIRTUOSO_DIR}/job2.lck
-
 
 echo "copy file"
 
@@ -71,8 +76,6 @@ if [ -s ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log ]; then
   cat ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log >&2
   exit 1
 fi
-
-cp -r ${VIRTUOSO_DIR} /mnt/share/togovar/virtuoso-tmp
 
 # ロックファイルの削除
 rm ${VIRTUOSO_DIR}/job2.lck
