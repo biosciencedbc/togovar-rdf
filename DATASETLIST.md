@@ -13,6 +13,6 @@ Last update 2021-12-01
     | [HGNC](https://www.genenames.org/) | daily| 月-金 19:00|  [2021-11-29](https://togovar.biosciencedbc.jp/public/virtuoso/hgnc/latest/)    | 
     | [GWAS-Catalog](https://www.ebi.ac.uk/gwas/home) | monthly| 月-金 19:00|  [2021-11-30](https://togovar.biosciencedbc.jp/public/virtuoso/gwas-catalog/latest/)    | 
     | [EFO](https://) | monthly| 月-金 19:00|  [2021-11-29 (3.36.0)](https://togovar.biosciencedbc.jp/public/virtuoso/efo/latest/)    | 
-    | [MONDO](https://) | monthly| 月-金 19:00|  [2021-10-01](https://togovar.biosciencedbc.jp/public/virtuoso/mondo/latest/)    | 
+    | [MONDO](https://) | monthly| 月-金 19:00|  [2021-12-01](https://togovar.biosciencedbc.jp/public/virtuoso/mondo/latest/)    | 
     | [SO](https://) | monthly| 月-金 19:00|  [2021-11-30](https://togovar.biosciencedbc.jp/public/virtuoso/so/latest/)    | 
     | [GO](https://) | monthly| 月-金 19:00|  [2021-11-29](https://togovar.biosciencedbc.jp/public/virtuoso/go/latest/)    | 
