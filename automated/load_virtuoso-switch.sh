@@ -15,7 +15,7 @@ VIRTUOSO_DIR="${DOCKER_ROOT_DIR}/data"				# rundeckコンテナでのvirtuosoフ
 DOCKER_DIR="${DOCKER_ROOT_DIR}/virtuoso-switch"			# virtuosoのDockerfile配置先
 DOCKER_LOG_DIR="${DOCKER_ROOT_DIR}/virtuoso-switch_logs"	# ログの出力先
 VIRTUOSO_HOST_DIR="${ROOT_DIR}/data"				# virtuosoファイル出力先 
-TEMPLATE_VIRTUOSO="/mnt/share/togovar/virtuoso-template/2022.1"	# gnomad等の事前ファイルがロードされているvirtuosoファイル
+TEMPLATE_VIRTUOSO_DIR="/mnt/share/togovar/virtuoso-template/2022.1"	# gnomad等の事前ファイルがロードされているvirtuosoファイル
 
 # job2.lckが存在する場合、異常終了
 if [ -e ${VIRTUOSO_DIR}/job2.lck ]; then 
@@ -41,7 +41,7 @@ time echo `md5sum ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db | awk '{ print $1 }'` > $
 
 # テンプレートのコピー
 # cp ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.trx ${VIRTUOSO_DIR}/virtuoso.trx  
-time cp ${TEMPLATE_VIRTUOSO}/virtuoso.db ${VIRTUOSO_DIR}/virtuoso.db 
+time cp ${TEMPLATE_VIRTUOSO_DIR}/virtuoso.db ${VIRTUOSO_DIR}/virtuoso.db 
 
 # コピー後のハッシュ値取得
 #echo `md5sum ${VIRTUOSO_DIR}/virtuoso.trx | awk '{ print $1 }'` > ${VIRTUOSO_DIR}/virtuoso.trx_md5
