@@ -9,7 +9,7 @@
 #
 
 HOST=localhost
-ISQL=isql-v
+ISQL=isql
 PORT=1111
 USER=dba
 PASSWORD=dba
@@ -23,7 +23,7 @@ do
 done
 
 # virtuosoの起動
-/virtuoso.sh > /dev/null 2>&1 &
+/virtuoso-entrypoint.sh > /dev/null 2>&1 &
 
 sleep 180
 
