@@ -97,11 +97,11 @@ if [ ${DATASET} = hco ]; then
   # ダウンロードディレクトリにファイルがある場合(初回実行でない)
   if [ -n "$(ls $WORKDIR_DOWNLOAD)" ]; then
     cd ${WORKDIR_DOWNLOAD}
-    git pull > ${WORKDIR_LOG}/${YYYYMMDD}_git.log
-    git_log=`egrep "Already up to date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
+    git pull > ${WORKDIR_LOG}/${YYYYMMDD}_build.log
+    git_log=`egrep "Already*.up*.to*.date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
     echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
     # gitログにAlready up to date.の文字列が出力されている場合(更新が無い)、更新が無い旨を出力して正常終了する
-    if [ ${git_log} -e 1 ]; then
+    if [ "${git_log}" -eq "1" ]; then
       echo "mesh に更新はありません "
       exit 0
     fi

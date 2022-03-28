@@ -118,7 +118,7 @@ fi
 
 image_cnt=`docker images | grep "rdf-${DATASET}" | wc -l`
 test ${image_cnt} -ne 0 && docker rmi rdf-${DATASET} >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log 
-docker build --tag rdf-${DATASET} . >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log
+docker build --no-cache --tag rdf-${DATASET} . >> ${WORKDIR_LOG}/${YYYYMMDD}_build.log
 if [ $? -ne 0 ]; then
   echo "イメージのビルドに失敗しました"
   cat ${WORKDIR_LOG}/${YYYYMMDD}_build.log

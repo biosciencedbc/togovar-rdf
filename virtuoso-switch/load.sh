@@ -38,7 +38,7 @@ now=`date "+%Y%m%d-%H%M%S"`
 echo "Started load.sh at $now"
 
 # latestの参照先のディレクトリを取得
-DATASETS=("clinvar" "ensembl_grch37" "ensembl_grch38" "hgnc" "medgen" "pubmed" "pubtator" "nlm-catalog" "efo" "mondo" "so" "go" "gwas-catalog" "mesh" "hco")
+DATASETS=("clinvar" "ensembl_grch37" "hgnc" "medgen" "pubmed" "pubtator" "efo" "mondo" "so" "gwas-catalog" "mesh" "hco")
 WORK_DIR="${DOCKER_ROOT_DIR}/work"
 declare -A DATASETS_DATE
 
@@ -49,19 +49,12 @@ done
 
 # ロード対象の追加
 # add_load_list [ロード対象ファイルのあるディレクトリ] '[対象ファイルのプレフィックス]' '[グラフ名]'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant/v3 '*.nt.gz' 'http://togovar.biosciencedbc.jp/variation'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/variant/v3 '*.nt.gz' 'http://togovar.biosciencedbc.jp/variant'
 
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_condition/clinvar/v3 'clinvar*.nt.gz' 'http://togovar.biosciencedbc.jp/variation/annotation/clinvar'
-
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3/ 'HGVD.*.nt.gz' 'http://togovar.biosciencedbc.jp/variation/frequency/hgvd'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3/ 'JGA-SNP.*.nt.gz' 'http://togovar.biosciencedbc.jp/variation/frequency/jga_ngs'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3/ 'JGA-NGS.*.nt.gz' 'http://togovar.biosciencedbc.jp/variation/frequency/jga_snp'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3 '4.7K.*.nt.gz' 'http://togovar.biosciencedbc.jp/variation/frequency/tommo_4.7kjpn'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3 '10K.*.nt.gz' 'http://togovar.biosciencedbc.jp/variation/frequency/gem_j_wga'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_frequency/v3 'ExAC.*.ttl.gz' 'http://togovar.biosciencedbc.jp/variation/frequency/exac'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/variant_condition/clinvar/v3 'clinvar*.nt.gz' 'http://togovar.biosciencedbc.jp/variant/annotation/clinvar'
 
 add_load_list ${LOAD_DATA_BASE}/virtuoso/clinvar/${DATASETS_DATE["clinvar"]} '*.ttl.gz' 'http://togovar.biosciencedbc.jp/clinvar'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl_grch37/${DATASETS_DATE["ensembl_grch37"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl37'
+add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl_grch37/${DATASETS_DATE["ensembl_grch37"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/gwas-catalog/${DATASETS_DATE["gwas-catalog"]} '*' 'http://togovar.biosciencedbc.jp/gwas-catalog'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/efo/${DATASETS_DATE["efo"]} '*.owl' 'http://togovar.biosciencedbc.jp/efo'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hco/${DATASETS_DATE["hco"]} '*.ttl' 'http://togovar.biosciencedbc.jp/hco'
@@ -69,19 +62,15 @@ add_load_list ${LOAD_DATA_BASE}/virtuoso/hgnc/${DATASETS_DATE["hgnc"]} '*.ttl' '
 add_load_list ${LOAD_DATA_BASE}/virtuoso/medgen/${DATASETS_DATE["medgen"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/medgen'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/mesh/${DATASETS_DATE["mesh"]}  '*.nt.gz' 'http://togovar.biosciencedbc.jp/mesh'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/mondo/${DATASETS_DATE["mondo"]} '*.owl' 'http://togovar.biosciencedbc.jp/mondo'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/nlm-catalog/${DATASETS_DATE["nlm-catalog"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/nlm-catalog'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pubmed/${DATASETS_DATE["pubmed"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/pubmed'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pubtator/${DATASETS_DATE["pubtator"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/pubtator'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/pubcasefinder/20191005/graph-1/data  '*.ttl.gz' 'http://togovar.biosciencedbc.jp/pubcasefinder'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/so/${DATASETS_DATE["so"]} '*.owl' 'http://togovar.biosciencedbc.jp/so'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/go/${DATASETS_DATE["go"]} '*.owl' 'http://togovar.biosciencedbc.jp/go'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/ensembl_grch38/${DATASETS_DATE["ensembl_grch38"]}  '*.ttl' 'http://togovar.biosciencedbc.jp/ensembl38'
-add_load_list ${LOAD_DATA_BASE}/virtuoso/STY/20210201 '*.ttl' 'http://togovar.biosciencedbc.jp/sty'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/HPO/20210217 '*.owl' 'http://togovar.biosciencedbc.jp/hpo'
-#add_load_list ${LOAD_DATA_BASE}/virtuoso/colil/20190528 '*.nt.gz' 'http://togovar.biosciencedbc.jp/colil'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/gwas-catalog/study_sample_annotation '*.ttl' 'http://togovar.biosciencedbc.jp/gwas-catalog'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/hancestro '*.owl' 'http://togovar.biosciencedbc.jp/hancestro'
 add_load_list ${LOAD_DATA_BASE}/virtuoso/pato '*.owl' 'http://togovar.biosciencedbc.jp/pato'
+
+
 
 #echo
 #echo  "Files to be loaded"
