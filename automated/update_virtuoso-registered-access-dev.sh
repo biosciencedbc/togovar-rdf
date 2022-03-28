@@ -3,7 +3,7 @@
 #
 # virtuoso差し替え用スクリプト
 # 切替先
-# togovar-dev
+# registered-access
 # togovar-virtuoso-loader
 # store.bk
 # 
@@ -11,16 +11,19 @@
 SCRIPT_DIR="$(cd $(dirname $0); pwd)"
 source "${SCRIPT_DIR}/global.conf"
 
-VIRTUOSO_SWITCH_DIR=${DOCKER_ROOT_DIR}/data
-TOGOVAR_DEV_DIR=/home/rundeck/togovar-dev/togovar-data/latest/virtuoso
-TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-dev/togovar-develop-docker
+VIRTUOSO_SWITCH_DIR=${DOCKER_ROOT_DIR}/virtuoso-registered-access_load/data
+#TOGOVAR_DEV_DIR=/home/rundeck/togovar-dev/togovar-data/latest/virtuoso-registered-access
+TOGOVAR_DEV_DIR=/home/rundeck/togovar-dev/togovar-data/latest/virtuoso-reg-access
+#TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-dev/togovar-develop-docker
+TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-dev/togovar-reg-access-docker
+
 
 # ロックファイルの確認、あれば切替用virtuosoへのロードジョブ実施中として異常終了
 if [ -e ${VIRTUOSO_SWITCH_DIR}/job2.lck ];then
   echo "切替用virtuosoへのロードジョブが実行中です"
   exit 1
 fi
-
+    
 
 echo "copy file"
 
@@ -58,9 +61,11 @@ echo "update"
 
 # togovar-devの停止
 cd ${TOGOVAR_DEV_DOCKER_DIR}
-docker-compose exec -T virtuoso isql 1111 dba dba exec="checkpoint"
+#docker-compose exec -T virtuoso_registered_access isql 1111 dba dba exec="checkpoint"
+docker-compose exec -T virtuoso_reg_access isql 1111 dba dba exec="checkpoint"
 exec_3=`echo $?`
-docker-compose exec -T virtuoso isql 1111 dba dba -K
+#docker-compose exec -T virtuoso_registered_access isql 1111 dba dba -K
+docker-compose exec -T virtuoso_reg_access isql 1111 dba dba -K
 exec_4=`echo $?`
 
 # togovar-devの停止に失敗した場合異常終了する
@@ -80,7 +85,8 @@ mv ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp ${TOGOVAR_DEV_DIR}/virtuoso.db
 sleep 60
 
 # togovar-devの再起動
-docker-compose start virtuoso
+#docker-compose start virtuoso_registered_access
+docker-compose start virtuoso_reg_access
 
 
 echo "finish"

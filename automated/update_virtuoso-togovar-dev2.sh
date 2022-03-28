@@ -9,7 +9,8 @@
 SCRIPT_DIR="$(cd $(dirname $0); pwd)"
 source "${SCRIPT_DIR}/global.conf"
 
-TOGOVAR_DEV_DIR=/home/rundeck/togovar-dev2/togovar-data/virtuoso
+VIRTUOSO_SWITCH_DIR=${DOCKER_ROOT_DIR}/data
+TOGOVAR_DEV_DIR=/home/rundeck/togovar-dev2/togovar-data/latest/virtuoso
 TOGOVAR_DEV_DOCKER_DIR=/home/rundeck/togovar-dev2/togovar-dev2-docker
 
 # ロックファイルの確認、あれば切替用virtuosoへのロードジョブ実施中として異常終了
@@ -22,33 +23,33 @@ fi
 echo "copy file"
 
 # コピー前のハッシュ値取得
-echo `md5sum ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx | awk '{ print $1 }'` > ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx_md5
-echo `md5sum ${VIRTUOSO_SWITCH_DIR}/virtuoso.db | awk '{ print $1 }'` > ${VIRTUOSO_SWITCH_DIR}/virtuoso.db_md5
+#echo `md5sum ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx | awk '{ print $1 }'` > ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx_md5
+#echo `md5sum ${VIRTUOSO_SWITCH_DIR}/virtuoso.db | awk '{ print $1 }'` > ${VIRTUOSO_SWITCH_DIR}/virtuoso.db_md5
 
 # 最新のDBファイルをコピー
-cp ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp
-cp ${VIRTUOSO_SWITCH_DIR}/virtuoso.db ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp
+#cp ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp
+#cp ${VIRTUOSO_SWITCH_DIR}/virtuoso.db ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp
 
 # コピー後のハッシュ値取得
-echo `md5sum ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp | awk '{ print $1 }'` > ${TOGOVAR_DEV_DIR}/virtuoso.trx_md5
-echo `md5sum ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp | awk '{ print $1 }'` > ${TOGOVAR_DEV_DIR}/virtuoso.db_md5
+#echo `md5sum ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp | awk '{ print $1 }'` > ${TOGOVAR_DEV_DIR}/virtuoso.trx_md5
+#echo `md5sum ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp | awk '{ print $1 }'` > ${TOGOVAR_DEV_DIR}/virtuoso.db_md5
 
 
 echo "check hash"
 
 # コピー前後のハッシュ値比較
-diff ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx_md5 ${TOGOVAR_DEV_DIR}/virtuoso.trx_md5
-exec_1=`echo $?`
-diff ${VIRTUOSO_SWITCH_DIR}/virtuoso.db_md5 ${TOGOVAR_DEV_DIR}/virtuoso.db_md5
-exec_2=`echo $?`
+#diff ${VIRTUOSO_SWITCH_DIR}/virtuoso.trx_md5 ${TOGOVAR_DEV_DIR}/virtuoso.trx_md5
+#exec_1=`echo $?`
+#diff ${VIRTUOSO_SWITCH_DIR}/virtuoso.db_md5 ${TOGOVAR_DEV_DIR}/virtuoso.db_md5
+#exec_2=`echo $?`
 
 # コピーしたファイルのハッシュ値が一致しない場合一時ファイルを削除して異常終了する
-if [ ${exec_1} -ne 0 ] || [ ${exec_2} -ne 0 ]; then
-  echo "DBファイルのコピーに失敗しました"
-  rm ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp
-  rm ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp
-  exit 1
-fi
+#if [ ${exec_1} -ne 0 ] || [ ${exec_2} -ne 0 ]; then
+#  echo "DBファイルのコピーに失敗しました"
+#  rm ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp
+#  rm ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp
+#  exit 1
+#fi
 
 
 echo "update"
@@ -73,7 +74,7 @@ mv ${TOGOVAR_DEV_DIR}/virtuoso.db ${TOGOVAR_DEV_DIR}/virtuoso.db_bk
 # 差し替えの実行
 mv ${TOGOVAR_DEV_DIR}/virtuoso.trx_tmp ${TOGOVAR_DEV_DIR}/virtuoso.trx
 mv ${TOGOVAR_DEV_DIR}/virtuoso.db_tmp ${TOGOVAR_DEV_DIR}/virtuoso.db
-cp ${VIRTUOSO_SWITCH_DIR}/dataset_date.tsv ${TOGOVAR_DEV_DIR}/dataset_date.tsv
+#cp ${VIRTUOSO_SWITCH_DIR}/dataset_date.tsv ${TOGOVAR_DEV_DIR}/dataset_date.tsv
 
 sleep 60
 

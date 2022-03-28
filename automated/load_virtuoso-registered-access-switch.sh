@@ -61,7 +61,7 @@ docker build --tag virtuoso-registered-access-switch ${DOCKER_DIR}
 echo "load start"
 
 # ロードの実行
-docker run --rm -v ${VIRTUOSO_HOST_DIR}:/data -v ${LOAD_DIR}:/load/virtuoso-registered-access:ro virtuoso-registered-access-switch 1> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stdout.log 2> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log
+docker run --rm -v ${VIRTUOSO_HOST_DIR}:/database -v ${LOAD_DIR}:/load/virtuoso-registered-access:ro virtuoso-registered-access-switch 1> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stdout.log 2> ${DOCKER_LOG_DIR}/${YYYYMMDD}_stderr.log
 
 echo "load finish"
 
