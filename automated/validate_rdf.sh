@@ -144,7 +144,7 @@ if [ ${MAKE_MATADATA} -eq 1 ]; then
 
   # バージョン(version)を更新する、Ensemblの場合はアーカイブファイルと同じ場所に保存されているversionを記載したファイルを参照する
   if [ ${ENSEMBL} -eq 1 ]; then
-    ENSEMBL_VERSION=`cat ${WORKDIR_ROOT}/rdf-${DATASET}_download/version.json | jq '.releases[0]'`
+    ENSEMBL_VERSION=`cat ${WORKDIR_DOWNLOAD}/version.txt`
     sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata.yaml 
     sed -i -e "s/version: .*$/version: release_${ENSEMBL_VERSION}/" ${OUTDIR}/metadata_ja.yaml
   else

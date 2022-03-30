@@ -30,7 +30,7 @@ ssh dgx1 touch ${DGX1_VIRTUOSO_DIR}/job2.lck
 echo "copy file to dgx1"
 
 # dgx1にvirtuosoファイルをコピーする
-rsync -r ${VIRTUOSO_DIR}/ togovar@dgx1:${DGX1_VIRTUOSO_DIR}
+scp ${VIRTUOSO_DIR:-/home/togovar/togovar/togovar-dev/togovar-rdf/data}/* togovar@dgx1:${DGX1_VIRTUOSO_DIR}
 
 # ロックファイルの削除
 ssh dgx1 rm ${DGX1_VIRTUOSO_DIR}/job2.lck

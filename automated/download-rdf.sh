@@ -75,7 +75,6 @@ if [ ${DATASET} = mesh ]; then
   num_of_newfiles=`egrep "\[+[0-9]+\]" "${WORKDIR_LOG}/${YYYYMMDD}_stdout.log" | grep -v ".listing" | wc -l`
   # 更新がなく、fオプションが指定されていなければ更新せず正常終了
   if [ ${num_of_newfiles} -eq 0 ] && [ ${FORCE_CONVERT} -eq 0 ]; then
-    echo "mesh に更新はありません "
     exit 0
   fi
   # 出力先ディレクトリにコピー
@@ -102,7 +101,6 @@ if [ ${DATASET} = hco ]; then
     echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
     # gitログにAlready up to date.の文字列が出力されている場合(更新が無い)、更新が無い旨を出力して正常終了する
     if [ "${git_log}" -eq "1" ]; then
-      echo "mesh に更新はありません "
       exit 0
     fi
   # ダウンロードディレクトリにファイルがない場合(初回実行の場合)  
