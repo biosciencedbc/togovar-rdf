@@ -65,8 +65,6 @@ YYYYMMDD=`cat ${WORKDIR_ROOT}/rdf-${DATASET}_download/update.txt`
 OUTDIR_ROOT=${OUTDIR}/${DATASET}
 LATESTDIR=${OUTDIR}/${DATASET}/latest
 OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
-DATASETLIST_DIR=${WORKDIR_ROOT}/create_DATASETLIST
-
 
 #
 # RDFファイルの有無を確認
@@ -116,14 +114,6 @@ fi
 #
 cd ${OUTDIR_ROOT}
 ln -snf ${YYYYMMDD} latest
-cd - > /dev/null
-# 実行日が記載されたファイルをDATASETLIST.md用にコピーする
-cp ${WORKDIR_DOWNLOAD}/update.txt ${DATASETLIST_DIR}/${DATASET}_update.txt
-
-# versionを記載したファイルがあるDATASETLIST.md用にコピーする
-if [ -e ${WORKDIR_DOWNLOAD}/version.txt ]; then
-  cp ${WORKDIR_DOWNLOAD}/version.txt  ${DATASETLIST_DIR}/${DATASET}_version.txt
-fi
 
 #
 # メタデータファイルを実行日で更新して対象ディレクトリに出力
