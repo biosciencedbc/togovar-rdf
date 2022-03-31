@@ -26,6 +26,9 @@ wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automate
 # registered access用virtuoso.db作成
 wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automated/load_virtuoso-registered-access-switch.sh -O load_virtuoso-registered-access-switch.sh
 
+# registered access用userlistダウンロード処理
+wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automated/download_ddbjaccount.sh -O download_ddbjaccount.sh
+
 chmod 777 -R .
 
 cd ${SCRIPT_DIR}
