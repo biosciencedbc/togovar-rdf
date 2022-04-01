@@ -8,15 +8,15 @@
 
 # global.confを読み込む
 SCRIPT_DIR="$(cd $(dirname $0); pwd)"
-source "${SCRIPT_DIR}/global.conf"
+source "${SCRIPT_DIR}/registered-access.conf"
 
 YYYYMMDD=`LANG=C; date +%Y%m%d`
 VIRTUOSO_DIR="${DOCKER_ROOT_DIR}/virtuoso-registered-access_load/data"
 DOCKER_DIR="${DOCKER_ROOT_DIR}/virtuoso-registered-access-switch"
 DOCKER_LOG_DIR="${DOCKER_ROOT_DIR}/virtuoso-registered-access_load/logs"
 VIRTUOSO_HOST_DIR="${ROOT_DIR}/virtuoso-registered-access_load/data"
-TEMPLATE_VIRTUOSO_DIR="${DOCKER_ROOT_DIR}/virtuoso-registered-access_load/template"
-LOAD_DIR="/mnt/share/togovar_h/load/virtuoso-registered-access"
+TEMPLATE_VIRTUOSO_DIR="${DOCKER_ROOT_DIR}/virtuoso-registered-access_load/template/data"
+LOAD_DIR="${ROOT_DIR}/virtuoso-registered-access_load/"
 
 # virtuosoの初期化
 if [ -d ${VIRTUOSO_DIR} ];then
