@@ -23,7 +23,7 @@ if [ -d ${VIRTUOSO_DIR} ];then
   rm -rf ${VIRTUOSO_DIR}
 fi
 
-mkdir ${VIRTUOSO_DIR}
+mkdir -p ${VIRTUOSO_DIR} && mkdir -p ${DOCKER_LOG_DIR}
 # ロックファイルの作成
 touch ${VIRTUOSO_DIR}/job2.lck
 
