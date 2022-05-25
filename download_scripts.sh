@@ -19,6 +19,8 @@ wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automate
 wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automated/load_virtuoso-switch.sh -O load_virtuoso-switch.sh
 # ジョブ2 dgx１へのvirtuoso.dbコピー処理
 wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automated/copy_virtuoso_to_dgx1.sh -O copy_virtuoso_to_dgx1.sh
+# registered access用 dgx１へのvirtuoso.dbコピー処理
+wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automated/copy_virtuoso_to_dgx1_registered_access.sh -O copy_virtuoso_to_dgx1_registered_access.sh
 
 # registered access用　テンプレート作成ジョブ
 wget https://raw.githubusercontent.com/biosciencedbc/togovar-rdf/master/automated/load_virtuoso-registered-access-template.sh -O load_virtuoso-registered-access-template.sh
