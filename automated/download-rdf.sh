@@ -99,8 +99,8 @@ if [ ${DATASET} = hco ]; then
     git pull > ${WORKDIR_LOG}/${YYYYMMDD}_build.log
     git_log=`egrep "Already*.up*.to*.date." ${WORKDIR_LOG}/${YYYYMMDD}_build.log | wc -l`
     echo "${YYYYMMDD}" > ${WORKDIR_DOWNLOAD}/update.txt
-    # gitログにAlready up to date.の文字列が出力されている場合(更新が無い)、更新が無い旨を出力して正常終了する
-    if [ "${git_log}" -eq "1" ]; then
+    # gitログにAlready up to date.の文字列が出力されている場合(更新が無い) 且つ fオプションが指定されていなければ、更新が無い旨を出力して正常終了する
+    if [ "${git_log}" -eq "1" ] &&  [ ${FORCE_CONVERT} -eq 0 ]; then
       exit 0
     fi
   # ダウンロードディレクトリにファイルがない場合(初回実行の場合)  
