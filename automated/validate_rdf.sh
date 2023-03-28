@@ -62,10 +62,11 @@ fi
 # 更新日時ファイルからRDFファイルを出力したディレクトリを確認
 YYYYMMDD=`cat ${WORKDIR_ROOT}/rdf-${DATASET}_download/update.txt`
 #echo ${YYYYMMDD}
-OUTDIR_ROOT=${OUTDIR}/${DATASET}
-LATESTDIR=${OUTDIR}/${DATASET}/latest
-OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
-
+OUTDIR_ROOT=${DOCKER_OUTDIR}/${DATASET}
+LATESTDIR=${DOCKER_OUTDIR}/${DATASET}/latest
+OUTDIR_HOST=${OUTDIR}/${DATASET}/${YYYYMMDD}
+OUTDIR=${DOCKER_OUTDIR}/${DATASET}/${YYYYMMDD}
+#echo $OUTDIR
 #
 # RDFファイルの有無を確認
 # なければ対象ディレクトリを削除して正常終了
@@ -82,7 +83,7 @@ fi
 #
 # テスト用のvirtuosoにロード
 #
-RESULT=`docker run --rm -v ${OUTDIR}:/load check-rdf 2>&1` 
+RESULT=`docker run --rm -v ${OUTDIR_HOST}:/load check-rdf 2>&1` 
 LOADCOUNT=`echo "${RESULT}" | sed -n -e 1p`
 ERRORCOUNT=`echo "${RESULT}" | sed -n -e 2p`
 
@@ -143,7 +144,7 @@ if [ ${MAKE_MATADATA} -eq 1 ]; then
   fi
 fi
 
-echo "${DATASET} の最新ファイルは ${OUTDIR} に出力されました"
+echo "${DATASET} の最新ファイルは ${OUTDIR_HOST} に出力されました"
 #
 # 完了
 #

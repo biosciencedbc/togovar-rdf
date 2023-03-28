@@ -65,6 +65,9 @@ WORKDIR_DOWNLOAD_HOST="${WORKDIR_HOST}/rdf-${DATASET}_download"
 WORKDIR_LOG="${WORKDIR_ROOT}/rdf-${DATASET}_logs"
 YYYYMMDD=`LANG=C; date +%Y%m%d`
 sub_branch="${DATASET_VAL}_branch"
+#echo $WORKDIR_DOWNLOAD
+#echo $WORKDIR_DOWNLOAD_HOST
+
 #
 #  dockerファイルをgithubからpullする
 #  ディレクトリがない場合はclone あればpull 
@@ -126,18 +129,19 @@ if [ $? -ne 0 ]; then
 fi
 
 # RDFファイルを出力する空ディレクトリを作成する
+DOCKER_OUTDIR=${DOCKER_OUTDIR}/${DATASET}/${YYYYMMDD}
 OUTDIR=${OUTDIR}/${DATASET}/${YYYYMMDD}
 
 # 出力ディレクトリがすでにある場合
-if [ -e ${OUTDIR} ]; then
+if [ -e ${DOCKER_OUTDIR} ]; then
   # 出力ディレクトリにファイルがある場合、コンバート済みとして異常終了
-  if [ -n "$(ls $OUTDIR)" ]; then
+  if [ -n "$(ls $DOCKER_OUTDIR )" ]; then
     echo "本日分(${YYYYMMDD})はすでにコンバートされています"
     exit 1
   fi
 # 出力ディレクトリがない場合、出力先ディレクトリを作成する
 else 
-  mkdir -p ${OUTDIR}
+  mkdir -p ${DOCKER_OUTDIR}
 fi
 
 mkdir -p ${WORKDIR_DOWNLOAD}
