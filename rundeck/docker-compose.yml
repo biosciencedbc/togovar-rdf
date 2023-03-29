@@ -10,7 +10,6 @@ services:
     build:
       context: .
     environment:
-      #RUNDECK_DATABASE_DRIVER: com.mysql.jdbc.Driver
       RUNDECK_DATABASE_DRIVER: org.mariadb.jdbc.Driver
       RUNDECK_DATABASE_USERNAME: $RUNDECK_DATABASE_USERNAME
       RUNDECK_DATABASE_PASSWORD: $RUNDECK_DATABASE_PASSWORD
@@ -28,8 +27,6 @@ services:
       - ./var/ssh:/home/rundeck/.ssh
       - /home/rdf_portal/rdf_portal-rdf/:/home/rundeck/rdf_portal-rdf/
       - /mnt/nas05/rdf_portal/togovar:/mnt/nas05/rdf_portal/togovar
-        # - /mnt/share/togovar/load/virtuoso:/home/rundeck/togovar-rdf/virtuoso/
-        # - /root/dev/rundeck/.ssh:/home/rundeck/.ssh/
       - /etc/hosts:/etc/hosts
       - ./var/rundeck:/var/rundeck_home
       - /var/run/docker.sock:/var/run/docker.sock
