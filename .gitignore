@@ -1,4 +1,6 @@
 rundeck/.env
+rundeck/keys
 rundeck/projects
+rundeck/scripts
 rundeck/var
 work/
