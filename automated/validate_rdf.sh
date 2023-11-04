@@ -88,8 +88,8 @@ LOADCOUNT=`echo "${RESULT}" | sed -n -e 1p`
 ERRORCOUNT=`echo "${RESULT}" | sed -n -e 2p`
 
 #echo "RESULT : ${RESULT}"
-#echo "LOADCOUNT : ${LOADCOUNT}"
-#echo "ERRORCOUNT : ${ERRORCOUNT}"
+echo "FILES_TO_LOAD : ${LOADCOUNT}"
+echo "ERRORCOUNT : ${ERRORCOUNT}"
 
 #
 # ロード結果を確認してエラーがあればエラーを出力して異常終了
@@ -103,11 +103,13 @@ if [ ${LOADCOUNT} -eq 0 ]; then
 fi
 
 # ロード結果のエラー数が0でない場合、エラー内容を出力して異常終了
-if [ ! ${ERRORCOUNT} -eq 0 ]; then
-  echo "ロード結果にエラーがあります"
-  #ERRORLOG=`echo ${RESULT} | sed -n '2,$p'`
-  echo "${RESULT}"
-  exit 1
+if [[ ${ERRORCOUNT} =~ ^-?[0-9]+$ ]]; then
+  if [ ! ${ERRORCOUNT} -eq 0 ]; then
+    echo "ロード結果にエラーがあります"
+    #ERRORLOG=`echo ${RESULT} | sed -n '2,$p'`
+    echo "${RESULT}"
+    exit 1
+  fi
 fi
 
 #
