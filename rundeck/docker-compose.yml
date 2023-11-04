@@ -26,7 +26,8 @@ services:
       - ./var/logs:/home/rundeck/var/logs/rundeck/
       - ./var/ssh:/home/rundeck/.ssh
       - /home/rdf_portal/rdf_portal-rdf/:/home/rundeck/rdf_portal-rdf/
-      - /mnt/nas05/rdf_portal/togovar:/mnt/nas05/rdf_portal/togovar
+#      - /mnt/nas05/rdf_portal/togovar:/mnt/nas05/rdf_portal/togovar
+      - /mnt/nas05/togovar/public/virtuoso:/mnt/nas05/togovar/public/virtuoso
       - /etc/hosts:/etc/hosts
       - ./var/rundeck:/var/rundeck_home
       - /var/run/docker.sock:/var/run/docker.sock
